@@ -35,7 +35,7 @@ public class Player : MonoBehaviour
 
     private bool canJump = false;
     private bool wasOnGround = false;
-    private bool jumpFloating = false;
+    private bool jumpRising = false;
     private int walljumpDir = 0;
     private float jumpTimer = 0;
     private Coroutine crtCancelQueuedJump;
@@ -64,6 +64,8 @@ public class Player : MonoBehaviour
 
     private Persistent persistent;
 
+    public Transform holdSpot;
+    private List<Holdable> validHoldables = new List<Holdable>();
     private Holdable heldItem = null;
 
     private void Start()
@@ -118,7 +120,7 @@ public class Player : MonoBehaviour
 
     private Collider2D RaycastTiles(Vector2 startPoint, Vector2 endPoint)
     {
-        RaycastHit2D hit = Physics2D.Raycast(startPoint, endPoint - startPoint, Vector2.Distance(startPoint, endPoint), LayerMask.GetMask("Tiles"));
+        RaycastHit2D hit = Physics2D.Raycast(startPoint, endPoint - startPoint, Vector2.Distance(startPoint, endPoint), LayerMask.GetMask("Solid"));
         return hit.collider;
     }
 
@@ -250,7 +252,7 @@ public class Player : MonoBehaviour
             {
                 if (onRight)
                 {
-                    jumpFloating = false;
+                    jumpRising = false;
                     StopCancelQueuedJump();
                     jumpQueued = false;
                     canJump = false;
@@ -262,7 +264,7 @@ public class Player : MonoBehaviour
                 }
                 else if (onLeft)
                 {
-                    jumpFloating = false;
+                    jumpRising = false;
                     StopCancelQueuedJump();
                     jumpQueued = false;
                     canJump = false;
@@ -280,20 +282,20 @@ public class Player : MonoBehaviour
                 jumpQueued = false;
                 canJump = false;
                 xForce = 0;
-                jumpFloating = true;
+                jumpRising = true;
                 jumpTimer = 0;
                 PlaySound(jumpSound);
                 SetAnimState(AnimState.Jump);
             }
         }
 
-        if (jumpFloating)
+        if (jumpRising)
         {
             yVel = jumpForce; //Mathf.Max(jumpForce, yVel + jumpForce);
             jumpTimer += Time.fixedDeltaTime;
             if (jumpTimer >= maxJumpTime)
             {
-                jumpFloating = false;
+                jumpRising = false;
             }
         }
 
@@ -310,9 +312,9 @@ public class Player : MonoBehaviour
 
         if (jumpReleaseQueued)
         {
-            if (jumpFloating)
+            if (jumpRising)
             {
-                jumpFloating = false;
+                jumpRising = false;
                 jumpReleaseQueued = false;
             }
 
@@ -326,6 +328,19 @@ public class Player : MonoBehaviour
                 jumpReleaseQueued = false;
             }
         }
+
+        if (grabQueued)
+        {
+            if (heldItem)
+            {
+                ThrowHeldItem();
+            }
+            else
+            {
+                PickUpItem();
+            }
+        }
+        grabQueued = false;
 
         Vector2 vel = new Vector2(xVel, yVel);
         rb.velocity = vel;
@@ -359,6 +374,11 @@ public class Player : MonoBehaviour
 
         GameObject collider = collision.gameObject;
 
+        GrabArea grabArea = collider.GetComponent<GrabArea>();
+        if (grabArea != null)
+        {
+            validHoldables.Add(grabArea.GetComponentInParent<Holdable>());
+        }
         /*Gem gem = collider.GetComponent<Gem>();
         if (gem != null)
         {
@@ -367,6 +387,19 @@ public class Player : MonoBehaviour
             Instantiate(collectParticlePrefab, collider.transform.position, Quaternion.identity);
             levelGems++;
         }*/
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (!gameObject.activeSelf) return;
+
+        GameObject collider = collision.gameObject;
+
+        GrabArea grabArea = collider.GetComponent<GrabArea>();
+        if (grabArea != null)
+        {
+            validHoldables.Remove(grabArea.GetComponentInParent<Holdable>());
+        }
     }
 
     private Sprite GetAnimSprite()
@@ -461,5 +494,23 @@ public class Player : MonoBehaviour
             audioSource.pitch = 1;
         }
         audioSource.PlayOneShot(sound);
+    }
+
+    private void ThrowHeldItem()
+    {
+        heldItem.transform.parent = null;
+        heldItem.Throw(facingLeft);
+        heldItem = null;
+    }
+
+    private void PickUpItem()
+    {
+        if (validHoldables.Count > 0)
+        {
+            heldItem = validHoldables[0];
+            heldItem.PickUp();
+            heldItem.transform.parent = holdSpot;
+            heldItem.transform.localPosition = heldItem.offset;
+        }
     }
 }

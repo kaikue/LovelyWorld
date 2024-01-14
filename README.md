@@ -5,6 +5,9 @@ Palette: Island Joy 16x https://lospec.com/palette-list/island-joy-16
 ## TODO
 
 - grab
+	- throw force based on direction
+		- make sure jump/run velocity is preserved in throw
+	- relock when hitting solid after thrown
 - use kittenboat musicmanager for peristent bgm transition
 - scene transitions- keep held item & x or y value
 
@@ -30,3 +33,5 @@ Palette: Island Joy 16x https://lospec.com/palette-list/island-joy-16
 - moving platforms (run/jump/throw momentum)
 - everything serves at least two purposes
 - progression: world state change, carried item, knowledge of secrets, moons?
+- player jump- float in midair?
+- npcs with dialog (mintty)
