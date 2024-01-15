@@ -8,7 +8,6 @@ public class Persistent : MonoBehaviour
     [HideInInspector]
     public bool destroying = false;
 
-
     private const float musicFadeTime = 2;
     private const float musicEndTime = 1;
     private AudioSource audioSource;

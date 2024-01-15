@@ -61,6 +61,8 @@ public class Player : MonoBehaviour
     private AudioSource audioSource;
     public AudioClip jumpSound;
     public AudioClip landSound;
+    public AudioClip pickupSound;
+    public AudioClip throwSound;
 
     private Persistent persistent;
 
@@ -118,7 +120,7 @@ public class Player : MonoBehaviour
         sr.sprite = GetAnimSprite();
     }
 
-    private Collider2D RaycastTiles(Vector2 startPoint, Vector2 endPoint)
+    private Collider2D RaycastCollision(Vector2 startPoint, Vector2 endPoint)
     {
         RaycastHit2D hit = Physics2D.Raycast(startPoint, endPoint - startPoint, Vector2.Distance(startPoint, endPoint), LayerMask.GetMask("Solid"));
         return hit.collider;
@@ -128,7 +130,7 @@ public class Player : MonoBehaviour
     {
         Vector2 startPoint = rb.position + ec.points[point0] + direction * 0.02f;
         Vector2 endPoint = rb.position + ec.points[point1] + direction * 0.02f;
-        Collider2D collider = RaycastTiles(startPoint, endPoint);
+        Collider2D collider = RaycastCollision(startPoint, endPoint);
         return collider != null;
     }
 
@@ -353,7 +355,7 @@ public class Player : MonoBehaviour
 
         GameObject collider = collision.collider.gameObject;
 
-        if (collider.layer == LayerMask.NameToLayer("Tiles"))
+        if (collider.layer == LayerMask.NameToLayer("Solid"))
         {
             if (collision.GetContact(0).normal.x != 0)
             {
@@ -499,8 +501,9 @@ public class Player : MonoBehaviour
     private void ThrowHeldItem()
     {
         heldItem.transform.parent = null;
-        heldItem.Throw(facingLeft);
+        heldItem.Throw(facingLeft, rb.velocity);
         heldItem = null;
+        PlaySound(throwSound);
     }
 
     private void PickUpItem()
@@ -511,6 +514,7 @@ public class Player : MonoBehaviour
             heldItem.PickUp();
             heldItem.transform.parent = holdSpot;
             heldItem.transform.localPosition = heldItem.offset;
+            PlaySound(pickupSound);
         }
     }
 }
