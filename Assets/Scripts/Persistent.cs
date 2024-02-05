@@ -8,6 +8,9 @@ public class Persistent : MonoBehaviour
     [HideInInspector]
     public bool destroying = false;
 
+    [HideInInspector]
+    public string destinationZone = null;
+
     private const float musicFadeTime = 2;
     private const float musicEndTime = 1;
     private AudioSource audioSource;
@@ -39,6 +42,21 @@ public class Persistent : MonoBehaviour
     {
         player = FindObjectOfType<Player>();
 
+        if (destinationZone != null)
+        {
+            SceneTransition[] transitions = FindObjectsOfType<SceneTransition>();
+            foreach (SceneTransition transition in transitions)
+            {
+                if (transition.zoneName == destinationZone)
+                {
+                    player.transform.position = transition.spawnPoint.position;
+                    //TODO recreate & hold prev held item
+                    break;
+                }
+            }
+            destinationZone = null;
+        }
+
         BGMHolder bgm = FindObjectOfType<BGMHolder>();
         if (bgm != null)
         {
@@ -68,6 +86,19 @@ public class Persistent : MonoBehaviour
         audioSource.volume = startVol;
         audioSource.clip = music;
         audioSource.Play();
+    }
+
+    public static Persistent GetPersistent()
+    {
+        Persistent[] persistents = FindObjectsOfType<Persistent>();
+        foreach (Persistent p in persistents)
+        {
+            if (!p.destroying)
+            {
+                return p;
+            }
+        }
+        return null;
     }
 
 }

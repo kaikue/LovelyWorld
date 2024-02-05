@@ -11,15 +11,27 @@ public class Holdable : MonoBehaviour
 
     private Rigidbody2D rb;
     [HideInInspector]
-    public Vector3 offset;
+    public Vector3 holdOffset;
+    private Vector3 dropOffset;
     private BoxCollider2D col;
     private bool held = false;
+
+    private SoundManager soundManager;
+    public AudioClip landSound;
+    public AudioClip throwSound;
+    public AudioClip dropSound;
+    public AudioClip failSound;
+    public AudioClip pickupSound;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         col = GetComponent<BoxCollider2D>();
-        offset = new Vector3(0, GetComponent<BoxCollider2D>().bounds.size.y / 2, 0);
+        holdOffset = new Vector3(0, GetComponent<BoxCollider2D>().bounds.size.y / 2, 0);
+        dropOffset = new Vector3(GetComponent<BoxCollider2D>().bounds.size.x / 2, 0, 0);
+
+        Persistent persistent = Persistent.GetPersistent();
+        soundManager = persistent.GetComponent<SoundManager>();
     }
 
     private Collider2D RaycastCollision(Vector2 startPoint, Vector2 endPoint)
@@ -53,7 +65,7 @@ public class Holdable : MonoBehaviour
             yVel = 0;
             if (rb.velocity.y < 0)
             {
-                //PlaySound(landSound);
+                soundManager.PlaySound(landSound);
             }
         }
         else
@@ -64,7 +76,7 @@ public class Holdable : MonoBehaviour
         if (onCeiling && yVel > 0)
         {
             yVel = 0;
-            //PlaySound(landSound);
+            //soundManager.PlaySound(landSound);
         }
 
         Vector2 vel = new Vector2(rb.velocity.x, yVel);
@@ -83,7 +95,7 @@ public class Holdable : MonoBehaviour
                 rb.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
                 //rb.velocity = Vector2.zero;
             }
-            //TODO play sound
+            //soundManager.PlaySound(landSound); //this would play twice when hitting ground from thrown
         }
     }
 
@@ -92,17 +104,58 @@ public class Holdable : MonoBehaviour
         held = true;
         col.enabled = false;
         rb.isKinematic = true;
+        soundManager.PlaySound(pickupSound);
     }
 
-    public void Throw(bool left, Vector2 parentVel)
+    private bool CanDropAt(Vector2 pos)
+    {
+        Collider2D overlap = Physics2D.OverlapBox(pos, col.bounds.size, 0, LayerMask.GetMask("Solid"));
+        return overlap == null;
+    }
+
+    private void Release()
     {
         held = false;
         col.enabled = true;
         rb.isKinematic = false;
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+        transform.parent = null;
+    }
+
+    public bool Throw(bool left, Vector2 parentVel)
+    {
+        if (CanDropAt(rb.position))
+        {
+            Release();
+            int dir = left ? -1 : 1;
+            Vector2 vel = new Vector2(dir * throwForceSide, throwForceUp) + parentVel;
+            rb.velocity = vel;
+            soundManager.PlaySound(throwSound);
+            return true;
+        }
+        else
+        {
+            soundManager.PlaySound(failSound);
+            return false;
+        }
+    }
+
+    public bool Drop(bool left, Vector3 dropPos)
+    {
         int dir = left ? -1 : 1;
-        Vector2 vel = new Vector2(dir * throwForceSide, throwForceUp) + parentVel;
-        //rb.AddForce(force + parentVel);
-        rb.velocity = vel;
+        Vector3 newPos = dropPos + dir * dropOffset;
+        if (CanDropAt(newPos))
+        {
+            Release();
+            transform.localPosition = newPos;
+            rb.velocity = Vector2.zero;
+            soundManager.PlaySound(dropSound);
+            return true;
+        }
+        else
+        {
+            soundManager.PlaySound(failSound);
+            return false;
+        }
     }
 }

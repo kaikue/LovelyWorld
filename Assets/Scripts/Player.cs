@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -22,7 +23,6 @@ public class Player : MonoBehaviour
     private const float maxJumpTime = 0.3f;
     private const float maxWalljumpTime = 0.3f;
     private const float groundForceFriction = 0.8f;
-    private const float pitchVariation = 0.15f;
 
     private Rigidbody2D rb;
     private EdgeCollider2D ec;
@@ -58,11 +58,9 @@ public class Player : MonoBehaviour
     public Sprite fallHoldSprite;
     public Sprite[] runHoldSprites;
 
-    private AudioSource audioSource;
+    private SoundManager soundManager;
     public AudioClip jumpSound;
     public AudioClip landSound;
-    public AudioClip pickupSound;
-    public AudioClip throwSound;
 
     private Persistent persistent;
 
@@ -75,17 +73,9 @@ public class Player : MonoBehaviour
         rb = gameObject.GetComponent<Rigidbody2D>();
         ec = gameObject.GetComponent<EdgeCollider2D>();
         sr = gameObject.GetComponent<SpriteRenderer>();
-        audioSource = gameObject.GetComponent<AudioSource>();
 
-        Persistent[] persistents = FindObjectsOfType<Persistent>();
-        foreach (Persistent p in persistents)
-        {
-            if (!p.destroying)
-            {
-                persistent = p;
-                break;
-            }
-        }
+        persistent = Persistent.GetPersistent();
+        soundManager = persistent.GetComponent<SoundManager>();
     }
 
     private void Update()
@@ -137,6 +127,7 @@ public class Player : MonoBehaviour
     private void FixedUpdate()
     {
         float xInput = Input.GetAxis("Horizontal");
+        float yInput = Input.GetAxis("Vertical");
         float prevXVel = rb.velocity.x;
         float xVel;
         float dx = runAcceleration * Time.fixedDeltaTime * xInput;
@@ -218,7 +209,7 @@ public class Player : MonoBehaviour
 
             if (rb.velocity.y < 0)
             {
-                PlaySound(landSound);
+                soundManager.PlaySound(landSound, true);
             }
             yVel = 0;
 
@@ -243,7 +234,7 @@ public class Player : MonoBehaviour
         if (onCeiling && yVel > 0)
         {
             yVel = 0;
-            PlaySound(landSound);
+            soundManager.PlaySound(landSound, true);
         }
 
         if (jumpQueued)
@@ -261,7 +252,7 @@ public class Player : MonoBehaviour
                     xForce = 0;
                     walljumpDir = -1;
                     jumpTimer = 0;
-                    PlaySound(jumpSound);
+                    soundManager.PlaySound(jumpSound, true);
                     SetAnimState(AnimState.Jump);
                 }
                 else if (onLeft)
@@ -273,7 +264,7 @@ public class Player : MonoBehaviour
                     xForce = 0;
                     walljumpDir = 1;
                     jumpTimer = 0;
-                    PlaySound(jumpSound);
+                    soundManager.PlaySound(jumpSound, true);
                     SetAnimState(AnimState.Jump);
                 }
             }
@@ -286,7 +277,7 @@ public class Player : MonoBehaviour
                 xForce = 0;
                 jumpRising = true;
                 jumpTimer = 0;
-                PlaySound(jumpSound);
+                soundManager.PlaySound(jumpSound, true);
                 SetAnimState(AnimState.Jump);
             }
         }
@@ -335,7 +326,7 @@ public class Player : MonoBehaviour
         {
             if (heldItem)
             {
-                ThrowHeldItem();
+                ThrowHeldItem(yInput < 0);
             }
             else
             {
@@ -363,7 +354,7 @@ public class Player : MonoBehaviour
                 //PlaySound(bonkSound);
                 if (xForce != 0)
                 {
-                    PlaySound(landSound);
+                    soundManager.PlaySound(landSound, true);
                 }
                 xForce = 0;
             }
@@ -381,6 +372,14 @@ public class Player : MonoBehaviour
         {
             validHoldables.Add(grabArea.GetComponentInParent<Holdable>());
         }
+
+        SceneTransition sceneTransition = collider.GetComponent<SceneTransition>();
+        if (sceneTransition != null)
+        {
+            persistent.destinationZone = sceneTransition.zoneName;
+            SceneManager.LoadScene(sceneTransition.destinationScene);
+        }
+
         /*Gem gem = collider.GetComponent<Gem>();
         if (gem != null)
         {
@@ -480,30 +479,22 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void PlaySound(AudioClip sound, bool randomizePitch = false)
+    private void ThrowHeldItem(bool drop)
     {
-        if (sound == null)
+        bool success = false;
+        if (drop)
         {
-            print("missing sound!");
-            return;
-        }
-        if (randomizePitch)
-        {
-            audioSource.pitch = Random.Range(1 - pitchVariation, 1 + pitchVariation);
+            Vector2 offset = ec.bounds.size.x / 2 * Vector2.right * (facingLeft ? -1 : 1);
+            success = heldItem.Drop(facingLeft, rb.position + offset);
         }
         else
         {
-            audioSource.pitch = 1;
+            success = heldItem.Throw(facingLeft, rb.velocity);
         }
-        audioSource.PlayOneShot(sound);
-    }
-
-    private void ThrowHeldItem()
-    {
-        heldItem.transform.parent = null;
-        heldItem.Throw(facingLeft, rb.velocity);
-        heldItem = null;
-        PlaySound(throwSound);
+        if (success)
+        {
+            heldItem = null;
+        }
     }
 
     private void PickUpItem()
@@ -513,8 +504,7 @@ public class Player : MonoBehaviour
             heldItem = validHoldables[0];
             heldItem.PickUp();
             heldItem.transform.parent = holdSpot;
-            heldItem.transform.localPosition = heldItem.offset;
-            PlaySound(pickupSound);
+            heldItem.transform.localPosition = heldItem.holdOffset;
         }
     }
 }
