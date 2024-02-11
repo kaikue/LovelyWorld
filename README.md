@@ -7,8 +7,6 @@ Palette: Island Joy 16x https://lospec.com/palette-list/island-joy-16
 - make holdspot go down 1px when walk frame and up 1px when falling
 - fix check for free area when throwing/dropping
 	- push out of collision if possible?
-- use kittenboat musicmanager for peristent bgm transition
-	- load all music at game start
 
 - items
 	- ladders

@@ -14,8 +14,10 @@ public class Persistent : MonoBehaviour
     public Holdable heldItem = null;
 
     private const float musicFadeTime = 2;
-    private const float musicEndTime = 1;
+    private const float musicEndTime = 0.5f;
+    private float baseVol;
     private AudioSource audioSource;
+    private Coroutine crtFadeMusic;
 
     private Player player;
 
@@ -37,6 +39,7 @@ public class Persistent : MonoBehaviour
         if (!destroying)
         {
             audioSource = GetComponent<AudioSource>();
+            baseVol = audioSource.volume;
         }
     }
 
@@ -67,16 +70,24 @@ public class Persistent : MonoBehaviour
         BGMHolder bgm = FindObjectOfType<BGMHolder>();
         if (bgm != null)
         {
-            AudioClip music = bgm.music;
-            if (audioSource.clip == null)
+            SetMusic(bgm.music);
+        }
+    }
+
+    public void SetMusic(AudioClip music)
+    {
+        if (audioSource.clip == null)
+        {
+            audioSource.clip = music;
+            audioSource.Play();
+        }
+        else if (audioSource.clip != music || crtFadeMusic != null)
+        {
+            if (crtFadeMusic != null)
             {
-                audioSource.clip = music;
-                audioSource.Play();
+                StopCoroutine(crtFadeMusic);
             }
-            else if (audioSource.clip != music)
-            {
-                StartCoroutine(FadeMusic(music));
-            }
+            crtFadeMusic = StartCoroutine(FadeMusic(music));
         }
     }
 
@@ -88,9 +99,10 @@ public class Persistent : MonoBehaviour
             audioSource.volume = Mathf.Lerp(startVol, 0, t / musicFadeTime);
             yield return null;
         }
+        audioSource.volume = 0;
         yield return new WaitForSeconds(musicEndTime);
 
-        audioSource.volume = startVol;
+        audioSource.volume = baseVol;
         audioSource.clip = music;
         audioSource.Play();
     }

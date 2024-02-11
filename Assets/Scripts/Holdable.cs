@@ -36,7 +36,6 @@ public class Holdable : MonoBehaviour
             {
                 if (p.heldItem.id == id)
                 {
-                    print("destroying");
                     Destroy(gameObject);
                 }
                 break;
@@ -114,7 +113,6 @@ public class Holdable : MonoBehaviour
             if (rb.constraints == RigidbodyConstraints2D.FreezeRotation)
             {
                 rb.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
-                print("hit solid");
                 //rb.velocity = Vector2.zero;
             }
             soundManager.PlaySound(landSound); //this won't play when sliding down a wall onto ground of same tileset
@@ -151,7 +149,6 @@ public class Holdable : MonoBehaviour
     {
         if (CanDropAt(rb.position))
         {
-            print("throw");
             Release();
             int dir = left ? -1 : 1;
             Vector2 vel = new Vector2(dir * throwForceSide, throwForceUp) + parentVel;
@@ -172,7 +169,6 @@ public class Holdable : MonoBehaviour
         Vector3 newPos = dropPos + dir * dropOffset;
         if (CanDropAt(newPos))
         {
-            print("drop");
             Release();
             transform.localPosition = newPos;
             rb.velocity = Vector2.zero;
