@@ -4,8 +4,10 @@ Palette: Island Joy 16x https://lospec.com/palette-list/island-joy-16
 
 ## TODO
 
-- why did throwing break
-- scene transitions- keep held item
+- make player 1-2px shorter
+- fix low ceiling headbonk sound spam
+- keys shouoldnt collide with eachother
+- fix throw not working until scene transition
 - fix check for free area when throwing/dropping
 - use kittenboat musicmanager for peristent bgm transition
 
@@ -26,6 +28,7 @@ Palette: Island Joy 16x https://lospec.com/palette-list/island-joy-16
 		- activated by jump key? or up/down? or on timer?
 
 - up/down keys: look up/squat down
+- scene transition fx
 - slippery ice
 - non euclidean room transitions
 - item spawn rule manipulation
@@ -39,9 +42,15 @@ Palette: Island Joy 16x https://lospec.com/palette-list/island-joy-16
 - throw object in midair pushes you back?- sorta double jump
 
 - world
-	- center- veggie garden + love + magic (starting area)
-	- left- tide pools & cliffs (octopus, crab etc.)
+	- center- veggie garden + love + magic (starting area) (slam-funk)
+	- left- tide pools & cliffs (octopus, crab etc.) + sunset
 	- up- popsicle ice zone (fruits?)
-	- right- gears jungle (robots)
-	- down- hollow earth cave (bigfoot, faceless birds, atlantis etc.)
+	- right- gears jungle (robots) (angel eyes)
 	- way up- saturn palace
+	- down?- hollow earth cave (bigfoot, faceless birds, atlantis etc.)
+
+## Credits
+
+- Music:
+	- "Slam-Funk" composed and arranged by Haley Halcyon: https://opengameart.org/content/nes-chiptune-slam-funk
+	- "Angel Eyes (Chiptune Edit)" by Kim Lightyear: https://opengameart.org/content/angel-eyes-chiptune-edit

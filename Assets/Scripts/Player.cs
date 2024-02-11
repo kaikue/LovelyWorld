@@ -377,6 +377,11 @@ public class Player : MonoBehaviour
         if (sceneTransition != null)
         {
             persistent.destinationZone = sceneTransition.zoneName;
+            if (heldItem)
+            {
+                heldItem.transform.parent = persistent.transform;
+                persistent.heldItem = heldItem;
+            }
             SceneManager.LoadScene(sceneTransition.destinationScene);
         }
 
@@ -501,10 +506,15 @@ public class Player : MonoBehaviour
     {
         if (validHoldables.Count > 0)
         {
-            heldItem = validHoldables[0];
-            heldItem.PickUp();
-            heldItem.transform.parent = holdSpot;
-            heldItem.transform.localPosition = heldItem.holdOffset;
+            PickUpItem(validHoldables[0]);
         }
+    }
+
+    public void PickUpItem(Holdable holdable, bool sound = true)
+    {
+        heldItem = holdable;
+        heldItem.PickUp(sound);
+        heldItem.transform.parent = holdSpot;
+        heldItem.transform.localPosition = heldItem.holdOffset;
     }
 }

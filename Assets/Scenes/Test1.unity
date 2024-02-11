@@ -1279,7 +1279,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.06666667, g: 0.6784314, b: 0.7568628, a: 0}
+  m_BackGroundColor: {r: 0.11764707, g: 0.53333336, b: 0.45882356, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -1626,7 +1626,7 @@ PrefabInstance:
     - target: {fileID: 9183263334837224027, guid: 85dda529a91cdb444b468ca8065bcc95, type: 3}
       propertyPath: music
       value: 
-      objectReference: {fileID: 8300000, guid: 30e8e674b2618ac4f9352e9db674af1a, type: 3}
+      objectReference: {fileID: 8300000, guid: 59ee6118bafaca74ea097aab06dd463a, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

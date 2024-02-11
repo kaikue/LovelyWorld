@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Holdable : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class Holdable : MonoBehaviour
     private Vector3 dropOffset;
     private BoxCollider2D col;
     private bool held = false;
+    private string id;
 
     private SoundManager soundManager;
     public AudioClip landSound;
@@ -22,6 +24,24 @@ public class Holdable : MonoBehaviour
     public AudioClip dropSound;
     public AudioClip failSound;
     public AudioClip pickupSound;
+
+    private void Awake()
+    {
+        id = name + " " + SceneManager.GetActiveScene().name + " " + transform.position;
+
+        Persistent[] persistents = FindObjectsOfType<Persistent>();
+        foreach(Persistent p in persistents)
+        {
+            if (p.heldItem != null)
+            {
+                if (p.heldItem.id == id)
+                {
+                    Destroy(gameObject);
+                }
+                break;
+            }
+        }
+    }
 
     private void Start()
     {
@@ -99,12 +119,15 @@ public class Holdable : MonoBehaviour
         }
     }
 
-    public void PickUp()
+    public void PickUp(bool sound = true)
     {
         held = true;
         col.enabled = false;
         rb.isKinematic = true;
-        soundManager.PlaySound(pickupSound);
+        if (sound)
+        {
+            soundManager.PlaySound(pickupSound);
+        }
     }
 
     private bool CanDropAt(Vector2 pos)
@@ -130,6 +153,7 @@ public class Holdable : MonoBehaviour
             int dir = left ? -1 : 1;
             Vector2 vel = new Vector2(dir * throwForceSide, throwForceUp) + parentVel;
             rb.velocity = vel;
+            print(vel);
             soundManager.PlaySound(throwSound);
             return true;
         }

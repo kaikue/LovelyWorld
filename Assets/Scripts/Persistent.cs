@@ -10,6 +10,8 @@ public class Persistent : MonoBehaviour
 
     [HideInInspector]
     public string destinationZone = null;
+    [HideInInspector]
+    public Holdable heldItem = null;
 
     private const float musicFadeTime = 2;
     private const float musicEndTime = 1;
@@ -50,11 +52,15 @@ public class Persistent : MonoBehaviour
                 if (transition.zoneName == destinationZone)
                 {
                     player.transform.position = transition.spawnPoint.position;
-                    //TODO recreate & hold prev held item
                     break;
                 }
             }
             destinationZone = null;
+        }
+
+        if (heldItem != null)
+        {
+            player.PickUpItem(heldItem, false);
         }
 
         BGMHolder bgm = FindObjectOfType<BGMHolder>();

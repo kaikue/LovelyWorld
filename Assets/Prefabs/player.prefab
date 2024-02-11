@@ -133,14 +133,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   facingLeft: 0
   standSprite: {fileID: 21300000, guid: 1f5f901a5bf42e349a962b7bd86bc7f8, type: 3}
-  jumpSprite: {fileID: 21300000, guid: 1f5f901a5bf42e349a962b7bd86bc7f8, type: 3}
-  fallSprite: {fileID: 21300000, guid: 1f5f901a5bf42e349a962b7bd86bc7f8, type: 3}
+  jumpSprite: {fileID: 21300000, guid: cb5c1e6d80d47854bb7663324bc4a341, type: 3}
+  fallSprite: {fileID: 21300000, guid: 588a07b70361b9745b7b04bcb26ba9d7, type: 3}
   runSprites:
   - {fileID: 21300000, guid: 008bde0341d3faf4ebf087302f923992, type: 3}
   - {fileID: 21300000, guid: 1f5f901a5bf42e349a962b7bd86bc7f8, type: 3}
   standHoldSprite: {fileID: 21300000, guid: 1f5f901a5bf42e349a962b7bd86bc7f8, type: 3}
-  jumpHoldSprite: {fileID: 21300000, guid: 1f5f901a5bf42e349a962b7bd86bc7f8, type: 3}
-  fallHoldSprite: {fileID: 21300000, guid: 1f5f901a5bf42e349a962b7bd86bc7f8, type: 3}
+  jumpHoldSprite: {fileID: 21300000, guid: cb5c1e6d80d47854bb7663324bc4a341, type: 3}
+  fallHoldSprite: {fileID: 21300000, guid: 588a07b70361b9745b7b04bcb26ba9d7, type: 3}
   runHoldSprites:
   - {fileID: 21300000, guid: 008bde0341d3faf4ebf087302f923992, type: 3}
   - {fileID: 21300000, guid: 1f5f901a5bf42e349a962b7bd86bc7f8, type: 3}
@@ -209,11 +209,11 @@ EdgeCollider2D:
   m_Offset: {x: 0, y: 0}
   m_EdgeRadius: 0
   m_Points:
-  - {x: -0.15625, y: -0.5}
-  - {x: 0.15625, y: -0.5}
-  - {x: 0.15625, y: 0.5}
-  - {x: -0.15625, y: 0.5}
-  - {x: -0.15625, y: -0.5}
+  - {x: -0.3125, y: -0.46875}
+  - {x: 0.3125, y: -0.46875}
+  - {x: 0.3125, y: 0.46875}
+  - {x: -0.3125, y: 0.46875}
+  - {x: -0.3125, y: -0.46875}
   m_AdjacentStartPoint: {x: 0, y: 0}
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
