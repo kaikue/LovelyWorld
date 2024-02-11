@@ -234,7 +234,7 @@ public class Player : MonoBehaviour
         if (onCeiling && yVel > 0)
         {
             yVel = 0;
-            soundManager.PlaySound(landSound, true);
+            //soundManager.PlaySound(landSound, true);
         }
 
         if (jumpQueued)
@@ -486,7 +486,7 @@ public class Player : MonoBehaviour
 
     private void ThrowHeldItem(bool drop)
     {
-        bool success = false;
+        bool success;
         if (drop)
         {
             Vector2 offset = ec.bounds.size.x / 2 * Vector2.right * (facingLeft ? -1 : 1);

@@ -4,12 +4,11 @@ Palette: Island Joy 16x https://lospec.com/palette-list/island-joy-16
 
 ## TODO
 
-- make player 1-2px shorter
-- fix low ceiling headbonk sound spam
-- keys shouoldnt collide with eachother
-- fix throw not working until scene transition
+- make holdspot go down 1px when walk frame and up 1px when falling
 - fix check for free area when throwing/dropping
+	- push out of collision if possible?
 - use kittenboat musicmanager for peristent bgm transition
+	- load all music at game start
 
 - items
 	- ladders

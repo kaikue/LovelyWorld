@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 24884751455000187}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5625, z: 0}
+  m_LocalPosition: {x: 0, y: 0.28125, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -105,8 +105,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -800740119
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 1f5f901a5bf42e349a962b7bd86bc7f8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -138,12 +138,12 @@ MonoBehaviour:
   runSprites:
   - {fileID: 21300000, guid: 008bde0341d3faf4ebf087302f923992, type: 3}
   - {fileID: 21300000, guid: 1f5f901a5bf42e349a962b7bd86bc7f8, type: 3}
-  standHoldSprite: {fileID: 21300000, guid: 1f5f901a5bf42e349a962b7bd86bc7f8, type: 3}
-  jumpHoldSprite: {fileID: 21300000, guid: cb5c1e6d80d47854bb7663324bc4a341, type: 3}
-  fallHoldSprite: {fileID: 21300000, guid: 588a07b70361b9745b7b04bcb26ba9d7, type: 3}
+  standHoldSprite: {fileID: 21300000, guid: 5026b057771b33a4091ff7af6529788f, type: 3}
+  jumpHoldSprite: {fileID: 21300000, guid: fcff9454454530847918d7279bc58e64, type: 3}
+  fallHoldSprite: {fileID: 21300000, guid: 1ae2b6e4e30d594409b76f0d4057fab9, type: 3}
   runHoldSprites:
-  - {fileID: 21300000, guid: 008bde0341d3faf4ebf087302f923992, type: 3}
-  - {fileID: 21300000, guid: 1f5f901a5bf42e349a962b7bd86bc7f8, type: 3}
+  - {fileID: 21300000, guid: da80c237a674bc84ca776e8c59881705, type: 3}
+  - {fileID: 21300000, guid: 5026b057771b33a4091ff7af6529788f, type: 3}
   jumpSound: {fileID: 8300000, guid: abaf85b5e92d7c84e9e7dacb0a450a7b, type: 3}
   landSound: {fileID: 8300000, guid: 3f1e30ad024f6c34ea5abbc5533b0d51, type: 3}
   holdSpot: {fileID: 1454042747357619710}
@@ -161,8 +161,8 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_AngularDrag: 0
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2

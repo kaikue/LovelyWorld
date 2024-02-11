@@ -61,6 +61,7 @@ public class Persistent : MonoBehaviour
         if (heldItem != null)
         {
             player.PickUpItem(heldItem, false);
+            heldItem = null;
         }
 
         BGMHolder bgm = FindObjectOfType<BGMHolder>();
