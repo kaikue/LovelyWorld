@@ -41,6 +41,9 @@ TagManager:
   - name: Background
     uniqueID: 4061972879
     locked: 0
+  - name: Scenery
+    uniqueID: 2512977067
+    locked: 0
   - name: Tiles
     uniqueID: 1317024599
     locked: 0

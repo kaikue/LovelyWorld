@@ -17,6 +17,7 @@ public class Holdable : MonoBehaviour
     private BoxCollider2D col;
     private bool held = false;
     private string id;
+    private SpriteRenderer sr;
 
     private SoundManager soundManager;
     public AudioClip landSound;
@@ -47,8 +48,10 @@ public class Holdable : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         col = GetComponent<BoxCollider2D>();
-        holdOffset = new Vector3(0, GetComponent<BoxCollider2D>().bounds.size.y / 2, 0);
-        dropOffset = new Vector3(GetComponent<BoxCollider2D>().bounds.size.x / 2, 0, 0);
+        sr = GetComponent<SpriteRenderer>();
+        Vector2 size = sr.sprite.bounds.size;
+        holdOffset = new Vector3(0, size.y / 2, 0);
+        dropOffset = new Vector3(size.x / 2, 0, 0);
 
         Persistent persistent = Persistent.GetPersistent();
         soundManager = persistent.GetComponent<SoundManager>();
@@ -124,6 +127,7 @@ public class Holdable : MonoBehaviour
         held = true;
         col.enabled = false;
         rb.isKinematic = true;
+        sr.sortingLayerName = "Items";
         if (sound)
         {
             soundManager.PlaySound(pickupSound);

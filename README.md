@@ -8,6 +8,11 @@ Palette: Island Joy 16x https://lospec.com/palette-list/island-joy-16
 	- push out of collision if possible?
 
 - items
+	- fruits and veggies
+	- magic wand
+		- animate/deanimate fruits and veggies
+		- other weird uses
+		- E or Z to use?
 	- ladders
 	- torches- melt ice above you, light in darkness
 		- throw and slide along ice puzzle
