@@ -4,7 +4,6 @@ Palette: Island Joy 16x https://lospec.com/palette-list/island-joy-16
 
 ## TODO
 
-- make holdspot go down 1px when walk frame and up 1px when falling
 - fix check for free area when throwing/dropping
 	- push out of collision if possible?
 

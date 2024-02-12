@@ -57,6 +57,9 @@ public class Player : MonoBehaviour
     public Sprite jumpHoldSprite;
     public Sprite fallHoldSprite;
     public Sprite[] runHoldSprites;
+    public float holdSpotHeight;
+    public float holdSpotFallHeight;
+    public float[] holdSpotRunHeights;
 
     private SoundManager soundManager;
     public AudioClip jumpSound;
@@ -108,6 +111,7 @@ public class Player : MonoBehaviour
         sr.flipX = facingLeft;
         AdvanceAnim();
         sr.sprite = GetAnimSprite();
+        UpdateHoldSpot();
     }
 
     private Collider2D RaycastCollision(Vector2 startPoint, Vector2 endPoint)
@@ -516,5 +520,23 @@ public class Player : MonoBehaviour
         heldItem.PickUp(sound);
         heldItem.transform.parent = holdSpot;
         heldItem.transform.localPosition = heldItem.holdOffset;
+    }
+
+    private void UpdateHoldSpot()
+    {
+        float h;
+        if (animState == AnimState.Fall)
+        {
+            h = holdSpotFallHeight;
+        }
+        else if (animState == AnimState.Run)
+        {
+            h = holdSpotRunHeights[animFrame];
+        }
+        else
+        {
+            h = holdSpotHeight;
+        }
+        holdSpot.transform.localPosition = Vector2.up * h;
     }
 }
