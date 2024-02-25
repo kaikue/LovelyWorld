@@ -544,10 +544,10 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void PickUpItem(Holdable holdable, bool sound = true)
+    public void PickUpItem(Holdable holdable, bool isRoomTransition = false)
     {
         heldItem = holdable;
-        heldItem.PickUp(sound);
+        heldItem.PickUp(isRoomTransition);
         heldItem.transform.parent = holdSpot;
         heldItem.transform.localPosition = heldItem.holdOffset;
     }
@@ -591,7 +591,7 @@ public class Player : MonoBehaviour
         groundSnapMute = false;
     }
 
-    private void ChangeSceneWithHeld(string sceneName)
+    public void ChangeSceneWithHeld(string sceneName)
     {
         if (heldItem)
         {

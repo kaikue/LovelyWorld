@@ -8,16 +8,13 @@
 		- push out of collision if possible?
 	- thrown solids will slide along nonsolid items- should all items just be solid?
 	- thrown item landing on head is weird
-	- make sure all music is preload
 - items
 	- magic wand
 		- animate/deanimate fruits and veggies
 		- other weird uses
 		- E or Z to use? or up?
 	- urns
-		- unique patterns that match pairs
 		- in different rooms: set destScene to other's scene
-		- carry to other rooms puzzles
 		- rotate urn to come out gravity rotated
 	- backpack
 		- stand on & press down while holding- put item in backpack
@@ -29,19 +26,15 @@
 	- ladders
 	- torches- melt ice above you, light in darkness
 		- throw and slide along ice puzzle
-	- recall crystal- when dropped, teleports you to where you picked it up (but doesn't bring crystal with you)
 	- parachute- slow fall to cross gaps
 		- throw across gap puzzle
 		- glide back to wall for multiple walljumps
 	- keys & locked doors
-	- reset crystal- respawns everything in room
-		- except if you're holding it? (quickly pick up item to prevent its reset)
-		- use key from one room on multiple doors in another
-		- what if you're inside door?
 	- frog with sticky tongue- grapple on ceiling
 		- activated by jump key? or up/down? or on timer?
 	- bridge that lets you go through blocks
-- collectible hearts
+- background art
+- collectible hearts?
 	- juicier texture
 	- animate up/down
 	- collect animation
@@ -53,7 +46,12 @@
 	- bosses
 - health
 	- collectible heart fragments
-- up/down keys: look up/squat down
+	- checkpoints
+	- if you're inside door or movable solid item after reset/recall, it squishes you and you respawn
+		- squishzone inside player
+- one way platforms
+- moving platforms
+- up key: look up?
 - scene transition fx
 - screen scroll
 - palettes are unlockable items
@@ -61,7 +59,10 @@
 	- gameboy green palette
 - saving/loading
 - particles
+	- make sure they're pixel aligned
 	- teleport
+	- recall/reset crystal smash
+- recall crystal leaves ghost image of player where you pick it up
 - screen shake
 - disable walljump? maybe an item enables this?
 - UI
@@ -76,9 +77,8 @@
 - moving platforms (run/jump/throw momentum)
 - npcs with dialog (mintty)
 	- can pick them up and they go "hey put me down!"
+	- trade them items
 - doors? to dream world
-
-- no walljump while holding item?
 - throw object in midair pushes you back?- sorta double jump
 
 - design
@@ -90,7 +90,7 @@
 	- center- veggie garden + love + magic (starting area) (slam-funk) (red hearts)
 	- left- tide pools & cliffs (octopus, crab etc.) + sunset
 	- up- popsicle ice zone (fruits?)
-	- right- gears jungle (robots) (juhani stage 2)
+	- right- gears jungle (robots, moving/rotating platforms) (juhani stage 2)
 	- way up- saturn palace
 	- down?- hollow earth cave (bigfoot, faceless birds, atlantis etc.)
 	- limbo
@@ -106,17 +106,34 @@
 	- slumbering beast
 - other heart colors: orange, yellow, green, blue, purple, white
 
+- puzzles
+	- crystals
+		- throw reset/recall crystal and quickly grab another item
+		- put down and regrab recall crystal to change its recall point
+		- use key from one room on multiple doors in another
+	- teleport jar
+		- take teleport vase into its partner and enter limbo world
+		- teleport across scenes
+	- backpack
+		- put multiple items in backpack
+		- take teleport vase into its partner in backpack
+
+- pre-launch
+	- make sure all music is preload
+	- unmute persistent music
+
 ## Credits
 
 - Music
 	- "Slam-Funk" composed and arranged by Haley Halcyon: https://opengameart.org/content/nes-chiptune-slam-funk
-	- 4 Chiptunes (Adventure) by SubspaceAudio: https://opengameart.org/content/4-chiptunes-adventure
+	- "4 Chiptunes (Adventure)" by SubspaceAudio: https://opengameart.org/content/4-chiptunes-adventure
 	- "Angel Eyes (Chiptune Edit)" by Kim Lightyear: https://opengameart.org/content/angel-eyes-chiptune-edit
 	- "Lost in a bad place (horror ambience loop)" by congusbongus: https://opengameart.org/content/lost-in-a-bad-place-horror-ambience-loop
 	- "The Sketchy Shopkeep" by Cal McEachern: https://opengameart.org/content/chiptune-rpg-soundtrack-6-loops
 - Sound effects
-	- Sound effects Mini Pack1.5 by phoenix1291 https://opengameart.org/content/sound-effects-mini-pack15
-	- sfxr
+	- "Sound effects Mini Pack1.5" by phoenix1291: https://opengameart.org/content/sound-effects-mini-pack15
+	- "512 Sound Effects (8-bit style)" by SubspaceAudio: https://opengameart.org/content/512-sound-effects-8-bit-style
+	- Others generated with sfxr: https://sfxr.me/
 - Palettes
-	- Island Joy 16x by Kerrie Lake: https://lospec.com/palette-list/island-joy-16
+	- "Island Joy 16x" by Kerrie Lake: https://lospec.com/palette-list/island-joy-16
 	- Others from https://lospec.com/palette-list

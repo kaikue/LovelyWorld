@@ -8,7 +8,7 @@ public class SoundManager : MonoBehaviour
 
     public void PlaySound(AudioClip sound, bool randomizePitch = false)
     {
-        GameObject sfx = Instantiate(soundEffectPrefab);
+        GameObject sfx = Instantiate(soundEffectPrefab, transform);
         sfx.GetComponent<SoundEffect>().PlaySound(sound, randomizePitch);
     }
 }

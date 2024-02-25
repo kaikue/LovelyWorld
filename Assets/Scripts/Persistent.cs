@@ -18,6 +18,8 @@ public class Persistent : MonoBehaviour
     public string sendingJarType = null;
     [HideInInspector]
     public string limboExitScene;
+    [HideInInspector]
+    public Vector3? recallPos = null;
 
     private const float musicFadeTime = 2;
     private const float musicEndTime = 0.5f;
@@ -67,9 +69,15 @@ public class Persistent : MonoBehaviour
             destinationZone = null;
         }
 
+        if (recallPos != null)
+        {
+            player.transform.position = recallPos.Value;
+            recallPos = null;
+        }
+
         if (heldItem != null)
         {
-            player.PickUpItem(heldItem, false);
+            player.PickUpItem(heldItem, true);
             heldItem = null;
         }
 

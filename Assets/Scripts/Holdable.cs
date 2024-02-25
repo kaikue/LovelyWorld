@@ -20,10 +20,12 @@ public class Holdable : MonoBehaviour
     public string id;
     private SpriteRenderer sr;
     private bool groundSnapMute;
+    private bool throwing = false;
+    protected Persistent persistent;
 
     public bool snapToGround = true;
 
-    private SoundManager soundManager;
+    protected SoundManager soundManager;
     public AudioClip landSound;
     public AudioClip throwSound;
     public AudioClip dropSound;
@@ -57,7 +59,7 @@ public class Holdable : MonoBehaviour
         holdOffset = new Vector3(0, size.y / 2, 0);
         dropOffset = new Vector3(size.x / 2, 0, 0);
 
-        Persistent persistent = Persistent.GetPersistent();
+        persistent = Persistent.GetPersistent();
         soundManager = persistent.GetComponent<SoundManager>();
 
         groundSnapMute = true;
@@ -133,18 +135,24 @@ public class Holdable : MonoBehaviour
             {
                 soundManager.PlaySound(landSound); //this won't play when sliding down a wall onto ground of same tileset
             }
+            if (throwing)
+            {
+                OnThrownLand();
+                throwing = false;
+            }
         }
     }
 
-    public void PickUp(bool sound = true)
+    public void PickUp(bool isRoomTransition = false)
     {
         held = true;
         col.enabled = false;
         rb.isKinematic = true;
         sr.sortingLayerName = "Items";
-        if (sound)
+        if (!isRoomTransition)
         {
             soundManager.PlaySound(pickupSound);
+            OnGrabbed();
         }
     }
 
@@ -171,6 +179,7 @@ public class Holdable : MonoBehaviour
             int dir = left ? -1 : 1;
             Vector2 vel = new Vector2(dir * throwForceSide, throwForceUp) + parentVel;
             rb.velocity = vel;
+            throwing = true;
             soundManager.PlaySound(throwSound);
             return true;
         }
@@ -210,5 +219,15 @@ public class Holdable : MonoBehaviour
     {
         yield return new WaitForFixedUpdate();
         groundSnapMute = false;
+    }
+
+    protected virtual void OnGrabbed()
+    {
+
+    }
+
+    protected virtual void OnThrownLand()
+    {
+
     }
 }
