@@ -148,6 +148,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9907c6846dd007846a1c0b265d0b1496, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  teleportSound: {fileID: 8300000, guid: 733edea5c5421fb4696b5f68b2deb8f2, type: 3}
   destScene: current
   jarType: 
   spawnPoint: {fileID: 7883819037420526802}

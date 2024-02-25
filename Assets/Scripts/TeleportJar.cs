@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class TeleportJar : MonoBehaviour
 {
+    public AudioClip teleportSound;
     public string destScene = "current";
     [HideInInspector]
     public string jarType;

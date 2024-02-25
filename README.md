@@ -8,19 +8,17 @@
 		- push out of collision if possible?
 	- thrown solids will slide along nonsolid items- should all items just be solid?
 	- thrown item landing on head is weird
+	- make sure all music is preload
 - items
-	- fruits and veggies
 	- magic wand
 		- animate/deanimate fruits and veggies
 		- other weird uses
 		- E or Z to use? or up?
 	- urns
-		- teleport sound
 		- unique patterns that match pairs
 		- in different rooms: set destScene to other's scene
 		- carry to other rooms puzzles
 		- rotate urn to come out gravity rotated
-		- preserve enter/exit momentum? and drop items through?
 	- backpack
 		- stand on & press down while holding- put item in backpack
 		- can hold multiple items at once
@@ -63,6 +61,7 @@
 	- gameboy green palette
 - saving/loading
 - particles
+	- teleport
 - screen shake
 - disable walljump? maybe an item enables this?
 - UI
@@ -76,6 +75,7 @@
 - item spawn rule manipulation
 - moving platforms (run/jump/throw momentum)
 - npcs with dialog (mintty)
+	- can pick them up and they go "hey put me down!"
 - doors? to dream world
 
 - no walljump while holding item?
@@ -90,7 +90,7 @@
 	- center- veggie garden + love + magic (starting area) (slam-funk) (red hearts)
 	- left- tide pools & cliffs (octopus, crab etc.) + sunset
 	- up- popsicle ice zone (fruits?)
-	- right- gears jungle (robots) (angel eyes)
+	- right- gears jungle (robots) (juhani stage 2)
 	- way up- saturn palace
 	- down?- hollow earth cave (bigfoot, faceless birds, atlantis etc.)
 	- limbo
@@ -108,11 +108,15 @@
 
 ## Credits
 
-- Music:
+- Music
 	- "Slam-Funk" composed and arranged by Haley Halcyon: https://opengameart.org/content/nes-chiptune-slam-funk
+	- 4 Chiptunes (Adventure) by SubspaceAudio: https://opengameart.org/content/4-chiptunes-adventure
 	- "Angel Eyes (Chiptune Edit)" by Kim Lightyear: https://opengameart.org/content/angel-eyes-chiptune-edit
 	- "Lost in a bad place (horror ambience loop)" by congusbongus: https://opengameart.org/content/lost-in-a-bad-place-horror-ambience-loop
 	- "The Sketchy Shopkeep" by Cal McEachern: https://opengameart.org/content/chiptune-rpg-soundtrack-6-loops
+- Sound effects
+	- Sound effects Mini Pack1.5 by phoenix1291 https://opengameart.org/content/sound-effects-mini-pack15
+	- sfxr
 - Palettes
 	- Island Joy 16x by Kerrie Lake: https://lospec.com/palette-list/island-joy-16
 	- Others from https://lospec.com/palette-list

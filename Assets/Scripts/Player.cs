@@ -625,6 +625,7 @@ public class Player : MonoBehaviour
 
     private void EnterJar(TeleportJar jar)
     {
+        soundManager.PlaySound(jar.teleportSound);
         string jarID = jar.gameObject.GetComponent<Holdable>().id;
         if (jar.destScene == SceneManager.GetActiveScene().name)
         {
