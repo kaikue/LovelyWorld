@@ -12,6 +12,12 @@ public class Persistent : MonoBehaviour
     public string destinationZone = null;
     [HideInInspector]
     public Holdable heldItem = null;
+    [HideInInspector]
+    public string sendingJarID = null;
+    [HideInInspector]
+    public string sendingJarType = null;
+    [HideInInspector]
+    public string limboExitScene;
 
     private const float musicFadeTime = 2;
     private const float musicEndTime = 0.5f;
@@ -65,6 +71,13 @@ public class Persistent : MonoBehaviour
         {
             player.PickUpItem(heldItem, false);
             heldItem = null;
+        }
+
+        if (sendingJarID != null && SceneManager.GetActiveScene().name != "Limbo")
+        {
+            player.TeleportToJarPartner(sendingJarID, sendingJarType);
+            sendingJarID = null;
+            sendingJarType = null;
         }
 
         BGMHolder bgm = FindObjectOfType<BGMHolder>();

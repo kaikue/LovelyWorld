@@ -87,7 +87,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 4e953a6e176cc0243a3fda629f6ee23c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -135,17 +135,20 @@ MonoBehaviour:
   standSprite: {fileID: 21300000, guid: 1f5f901a5bf42e349a962b7bd86bc7f8, type: 3}
   jumpSprite: {fileID: 21300000, guid: cb5c1e6d80d47854bb7663324bc4a341, type: 3}
   fallSprite: {fileID: 21300000, guid: 588a07b70361b9745b7b04bcb26ba9d7, type: 3}
+  downSprite: {fileID: 21300000, guid: 32b78b53d6dc0a5488895a05cd05178d, type: 3}
   runSprites:
   - {fileID: 21300000, guid: 008bde0341d3faf4ebf087302f923992, type: 3}
   - {fileID: 21300000, guid: 1f5f901a5bf42e349a962b7bd86bc7f8, type: 3}
   standHoldSprite: {fileID: 21300000, guid: 5026b057771b33a4091ff7af6529788f, type: 3}
   jumpHoldSprite: {fileID: 21300000, guid: fcff9454454530847918d7279bc58e64, type: 3}
   fallHoldSprite: {fileID: 21300000, guid: 1ae2b6e4e30d594409b76f0d4057fab9, type: 3}
+  downHoldSprite: {fileID: 21300000, guid: 4117c78dc2b07534c8ca2efd8ab3b8b9, type: 3}
   runHoldSprites:
   - {fileID: 21300000, guid: da80c237a674bc84ca776e8c59881705, type: 3}
   - {fileID: 21300000, guid: 5026b057771b33a4091ff7af6529788f, type: 3}
   holdSpotHeight: 0.28125
   holdSpotFallHeight: 0.34375
+  holdSpotDownHeight: 0.21875
   holdSpotRunHeights:
   - 0.21875
   - 0.28125

@@ -16,8 +16,12 @@ public class Holdable : MonoBehaviour
     private Vector3 dropOffset;
     private BoxCollider2D col;
     private bool held = false;
-    private string id;
+    [HideInInspector]
+    public string id;
     private SpriteRenderer sr;
+    private bool groundSnapMute;
+
+    public bool snapToGround = true;
 
     private SoundManager soundManager;
     public AudioClip landSound;
@@ -55,6 +59,13 @@ public class Holdable : MonoBehaviour
 
         Persistent persistent = Persistent.GetPersistent();
         soundManager = persistent.GetComponent<SoundManager>();
+
+        groundSnapMute = true;
+        StartCoroutine(DisableGroundSnapMute());
+        if (snapToGround)
+        {
+            SnapToGround();
+        }
     }
 
     private Collider2D RaycastCollision(Vector2 startPoint, Vector2 endPoint)
@@ -118,7 +129,10 @@ public class Holdable : MonoBehaviour
                 rb.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
                 //rb.velocity = Vector2.zero;
             }
-            soundManager.PlaySound(landSound); //this won't play when sliding down a wall onto ground of same tileset
+            if (!groundSnapMute)
+            {
+                soundManager.PlaySound(landSound); //this won't play when sliding down a wall onto ground of same tileset
+            }
         }
     }
 
@@ -184,5 +198,17 @@ public class Holdable : MonoBehaviour
             soundManager.PlaySound(failSound);
             return false;
         }
+    }
+
+    private void SnapToGround()
+    {
+        RaycastHit2D hit = Physics2D.BoxCast(transform.position, col.bounds.size, 0, Vector2.down, 1, LayerMask.GetMask("Solid"));
+        transform.position += Vector3.down * hit.distance;
+    }
+
+    private IEnumerator DisableGroundSnapMute()
+    {
+        yield return new WaitForFixedUpdate();
+        groundSnapMute = false;
     }
 }

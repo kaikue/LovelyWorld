@@ -1,22 +1,37 @@
 # Lovely World
 
-Palette: Island Joy 16x https://lospec.com/palette-list/island-joy-16
-
 ## TODO
 
-- fix check for free area when throwing/dropping
-	- push out of collision if possible?
-
+- Bugs
+	- give a little up vel when exiting teleport jar? (need to move player rb assignment from start to awake)
+	- fix check for free area when throwing/dropping
+		- push out of collision if possible?
+	- thrown solids will slide along nonsolid items- should all items just be solid?
+	- thrown item landing on head is weird
 - items
 	- fruits and veggies
 	- magic wand
 		- animate/deanimate fruits and veggies
 		- other weird uses
-		- E or Z to use?
+		- E or Z to use? or up?
+	- urns
+		- teleport sound
+		- unique patterns that match pairs
+		- in different rooms: set destScene to other's scene
+		- carry to other rooms puzzles
+		- rotate urn to come out gravity rotated
+		- preserve enter/exit momentum? and drop items through?
+	- backpack
+		- stand on & press down while holding- put item in backpack
+		- can hold multiple items at once
+		- extract by stand on & press down? or up? or use while holding?
+		- enter urn while its partner is in the backpack- paradox if backpack held, enter backpack zone if not
+			- theres a goblin npc inside who sorts all the items
+			- "sketchy shopkeep" music
 	- ladders
 	- torches- melt ice above you, light in darkness
 		- throw and slide along ice puzzle
-	- tp crystal- when dropped, teleports you to where you picked it up (but doesn't bring crystal with you)
+	- recall crystal- when dropped, teleports you to where you picked it up (but doesn't bring crystal with you)
 	- parachute- slow fall to cross gaps
 		- throw across gap puzzle
 		- glide back to wall for multiple walljumps
@@ -27,31 +42,77 @@ Palette: Island Joy 16x https://lospec.com/palette-list/island-joy-16
 		- what if you're inside door?
 	- frog with sticky tongue- grapple on ceiling
 		- activated by jump key? or up/down? or on timer?
-
+	- bridge that lets you go through blocks
+- collectible hearts
+	- juicier texture
+	- animate up/down
+	- collect animation
+- enemies
+	- bugs- worm, grasshopper
+	- pick up & throw (against wall?) to defeat
+	- hit with (solid?) item to defeat
+	- some can't be picked up (spiky back)
+	- bosses
+- health
+	- collectible heart fragments
 - up/down keys: look up/squat down
 - scene transition fx
+- screen scroll
+- palettes are unlockable items
+	- silhouette palette like playerfall
+	- gameboy green palette
+- saving/loading
+- particles
+- screen shake
+- disable walljump? maybe an item enables this?
+- UI
+	- pause
+- animations
+- story
+- title screen
+	- logo
+- credits roll listing all the enemies
 - slippery ice
-- non euclidean room transitions
 - item spawn rule manipulation
 - moving platforms (run/jump/throw momentum)
-- everything serves at least two purposes
-- progression: world state change, carried item, knowledge of secrets, collectible hearts
-- enemies
 - npcs with dialog (mintty)
+- doors? to dream world
 
 - no walljump while holding item?
 - throw object in midair pushes you back?- sorta double jump
 
+- design
+	- everything serves at least two purposes
+	- progression: world state change, carried item, knowledge of secrets, collectible hearts
+	- non euclidean room transitions?
+
 - world
-	- center- veggie garden + love + magic (starting area) (slam-funk)
+	- center- veggie garden + love + magic (starting area) (slam-funk) (red hearts)
 	- left- tide pools & cliffs (octopus, crab etc.) + sunset
 	- up- popsicle ice zone (fruits?)
 	- right- gears jungle (robots) (angel eyes)
 	- way up- saturn palace
 	- down?- hollow earth cave (bigfoot, faceless birds, atlantis etc.)
+	- limbo
+		- big & scrollable, enter with long fall
+		- some stuff changes as you progress
+		- secret puzzle to carry out void tear
+		- set limbo palette override
+		- enter/leave animation
+		- limbo music start right away
+	- dream world
+		- connection to limbo
+	- secret lagoon
+	- slumbering beast
+- other heart colors: orange, yellow, green, blue, purple, white
 
 ## Credits
 
 - Music:
 	- "Slam-Funk" composed and arranged by Haley Halcyon: https://opengameart.org/content/nes-chiptune-slam-funk
 	- "Angel Eyes (Chiptune Edit)" by Kim Lightyear: https://opengameart.org/content/angel-eyes-chiptune-edit
+	- "Lost in a bad place (horror ambience loop)" by congusbongus: https://opengameart.org/content/lost-in-a-bad-place-horror-ambience-loop
+	- "The Sketchy Shopkeep" by Cal McEachern: https://opengameart.org/content/chiptune-rpg-soundtrack-6-loops
+- Palettes
+	- Island Joy 16x by Kerrie Lake: https://lospec.com/palette-list/island-joy-16
+	- Others from https://lospec.com/palette-list

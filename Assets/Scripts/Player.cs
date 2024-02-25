@@ -18,6 +18,7 @@ public class Player : MonoBehaviour
     private const float jumpForce = 8;
     private const float walljumpUpForce = 8 / 1.414f;
     private const float walljumpSideForce = 8 / 1.414f;
+    private const float jarLaunchForce = 4;
     private const float gravityForce = 40;
     private const float maxFallSpeed = 50;
     private const float maxJumpTime = 0.3f;
@@ -31,6 +32,8 @@ public class Player : MonoBehaviour
     private bool jumpQueued = false;
     private bool jumpReleaseQueued = false;
     private bool grabQueued = false;
+    private bool downHeld = false;
+    private bool downPressQueued = false;
     private float xForce = 0;
 
     private bool canJump = false;
@@ -41,6 +44,7 @@ public class Player : MonoBehaviour
     private Coroutine crtCancelQueuedJump;
     private const float jumpBufferTime = 0.1f; //time before hitting ground a jump will still be queued
     private const float jumpGraceTime = 0.1f; //time after leaving ground player can still jump (coyote time)
+    private bool groundSnapMute;
 
     private const float runFrameTime = 0.1f;
     private SpriteRenderer sr;
@@ -52,13 +56,16 @@ public class Player : MonoBehaviour
     public Sprite standSprite;
     public Sprite jumpSprite;
     public Sprite fallSprite;
+    public Sprite downSprite;
     public Sprite[] runSprites;
     public Sprite standHoldSprite;
     public Sprite jumpHoldSprite;
     public Sprite fallHoldSprite;
+    public Sprite downHoldSprite;
     public Sprite[] runHoldSprites;
     public float holdSpotHeight;
     public float holdSpotFallHeight;
+    public float holdSpotDownHeight;
     public float[] holdSpotRunHeights;
 
     private SoundManager soundManager;
@@ -79,6 +86,8 @@ public class Player : MonoBehaviour
 
         persistent = Persistent.GetPersistent();
         soundManager = persistent.GetComponent<SoundManager>();
+
+        SnapToGround();
     }
 
     private void Update()
@@ -108,6 +117,13 @@ public class Player : MonoBehaviour
         }
         triggerWasHeld = triggerHeld;
 
+        bool downWasHeld = downHeld;
+        downHeld = Input.GetAxis("Vertical") < 0;
+        if (downHeld && !downWasHeld)
+        {
+            downPressQueued = true;
+        }
+
         sr.flipX = facingLeft;
         AdvanceAnim();
         sr.sprite = GetAnimSprite();
@@ -131,7 +147,6 @@ public class Player : MonoBehaviour
     private void FixedUpdate()
     {
         float xInput = Input.GetAxis("Horizontal");
-        float yInput = Input.GetAxis("Vertical");
         float prevXVel = rb.velocity.x;
         float xVel;
         float dx = runAcceleration * Time.fixedDeltaTime * xInput;
@@ -213,7 +228,10 @@ public class Player : MonoBehaviour
 
             if (rb.velocity.y < 0)
             {
-                soundManager.PlaySound(landSound, true);
+                if (!groundSnapMute)
+                {
+                    soundManager.PlaySound(landSound, true);
+                }
             }
             yVel = 0;
 
@@ -330,7 +348,7 @@ public class Player : MonoBehaviour
         {
             if (heldItem)
             {
-                ThrowHeldItem(yInput < 0);
+                ThrowHeldItem(downHeld);
             }
             else
             {
@@ -338,6 +356,16 @@ public class Player : MonoBehaviour
             }
         }
         grabQueued = false;
+
+        if (downPressQueued)
+        {
+            TeleportJar jar = GetJarBelow();
+            if (jar)
+            {
+                EnterJar(jar);
+            }
+        }
+        downPressQueued = false;
 
         Vector2 vel = new Vector2(xVel, yVel);
         rb.velocity = vel;
@@ -380,13 +408,13 @@ public class Player : MonoBehaviour
         SceneTransition sceneTransition = collider.GetComponent<SceneTransition>();
         if (sceneTransition != null)
         {
-            persistent.destinationZone = sceneTransition.zoneName;
-            if (heldItem)
-            {
-                heldItem.transform.parent = persistent.transform;
-                persistent.heldItem = heldItem;
-            }
-            SceneManager.LoadScene(sceneTransition.destinationScene);
+            EnterSceneTransition(sceneTransition);
+        }
+
+        LimboExit limboExit = collider.GetComponent<LimboExit>();
+        if (limboExit != null)
+        {
+            ChangeSceneWithHeld(persistent.limboExitScene);
         }
 
         /*Gem gem = collider.GetComponent<Gem>();
@@ -418,7 +446,9 @@ public class Player : MonoBehaviour
         switch (animState)
         {
             case AnimState.Stand:
-                return holding ? standHoldSprite : standSprite;
+                return holding ? 
+                    (downHeld ? downHoldSprite : standHoldSprite) :
+                    (downHeld ? downSprite : standSprite);
             case AnimState.Run:
                 return holding ? runHoldSprites[animFrame] : runSprites[animFrame];
             case AnimState.Jump:
@@ -533,10 +563,102 @@ public class Player : MonoBehaviour
         {
             h = holdSpotRunHeights[animFrame];
         }
+        else if (animState == AnimState.Stand && downHeld)
+        {
+            h = holdSpotDownHeight;
+        }
         else
         {
             h = holdSpotHeight;
         }
         holdSpot.transform.localPosition = Vector2.up * h;
+    }
+
+    public void SnapToGround()
+    {
+        groundSnapMute = true;
+        RaycastHit2D hit = Physics2D.BoxCast(transform.position, ec.bounds.size, 0, Vector2.down, 1, LayerMask.GetMask("Solid"));
+        if (hit)
+        {
+            transform.position += Vector3.down * hit.distance;
+        }
+        StartCoroutine(DisableGroundSnapMute());
+    }
+
+    private IEnumerator DisableGroundSnapMute()
+    {
+        yield return new WaitForFixedUpdate();
+        groundSnapMute = false;
+    }
+
+    private void ChangeSceneWithHeld(string sceneName)
+    {
+        if (heldItem)
+        {
+            heldItem.transform.parent = persistent.transform;
+            persistent.heldItem = heldItem;
+        }
+        SceneManager.LoadScene(sceneName);
+    }
+
+    private void EnterSceneTransition(SceneTransition sceneTransition)
+    {
+        persistent.destinationZone = sceneTransition.zoneName;
+        ChangeSceneWithHeld(sceneTransition.destinationScene);
+    }
+
+    private TeleportJar GetJarBelow()
+    {
+        Vector2 mid = ec.points[0] + ec.points[1] / 2;
+        Vector2 pos = rb.position + mid + Vector2.down * 0.02f;
+        Collider2D[] cols = Physics2D.OverlapBoxAll(pos, new Vector2(0.1f, 0.1f), 0, LayerMask.GetMask("Solid"));
+        foreach (Collider2D col in cols)
+        {
+            TeleportJar jar = col.GetComponent<TeleportJar>();
+            if (jar)
+            {
+                return jar;
+            }
+        }
+        return null;
+    }
+
+    private void EnterJar(TeleportJar jar)
+    {
+        string jarID = jar.gameObject.GetComponent<Holdable>().id;
+        if (jar.destScene == SceneManager.GetActiveScene().name)
+        {
+            TeleportToJarPartner(jarID, jar.jarType);
+        }
+        else
+        {
+            persistent.sendingJarID = jarID;
+            persistent.sendingJarType = jar.jarType;
+            ChangeSceneWithHeld(jar.destScene);
+        }
+    }
+
+    public void TeleportToJarPartner(string jarID, string jarType)
+    {
+        TeleportJar[] jars = FindObjectsOfType<TeleportJar>();
+        foreach (TeleportJar otherJar in jars)
+        {
+            Holdable otherHoldable = otherJar.GetComponent<Holdable>();
+            if (jarType == otherJar.jarType && jarID != otherHoldable.id)
+            {
+                if (otherHoldable == heldItem)
+                {
+                    persistent.sendingJarID = otherHoldable.id;
+                    persistent.sendingJarType = otherJar.jarType;
+                    persistent.limboExitScene = otherJar.destScene;
+                    SceneManager.LoadScene("Limbo");
+                }
+                else
+                {
+                    transform.position = otherJar.spawnPoint.position;
+                }
+                break;
+            }
+        }
     }
 }
