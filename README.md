@@ -62,7 +62,6 @@
 	- make sure they're pixel aligned
 	- teleport
 	- recall/reset crystal smash
-- recall crystal leaves ghost image of player where you pick it up
 - screen shake
 - disable walljump? maybe an item enables this?
 - UI
@@ -98,7 +97,7 @@
 		- some stuff changes as you progress
 		- secret puzzle to carry out void tear
 		- set limbo palette override
-		- enter/leave animation
+		- enter/leave animation & sound
 		- limbo music start right away
 	- dream world
 		- connection to limbo
@@ -107,6 +106,7 @@
 - other heart colors: orange, yellow, green, blue, purple, white
 
 - puzzles
+	- put item on back of enemy to move it
 	- crystals
 		- throw reset/recall crystal and quickly grab another item
 		- put down and regrab recall crystal to change its recall point
