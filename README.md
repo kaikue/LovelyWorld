@@ -3,19 +3,34 @@
 ## TODO
 
 - Bugs
+	- enemies get stuck walking against items- turn around? or push? or ignore? (cant because then they couldnt carry items)
+	- enemies standing on top of items is weird
+	- enemy drop off corner- is this the wrong drop check issue?
+	- don't animate enemy if turnaround on both sides
 	- give a little up vel when exiting teleport jar? (need to move player rb assignment from start to awake)
 	- fix check for free area when throwing/dropping
 		- push out of collision if possible?
 	- thrown solids will slide along nonsolid items- should all items just be solid?
 	- thrown item landing on head is weird
+		- gets stuck in midair
+- moving platforms (run/jump/throw momentum)
+	- if standing on solid rigidbody with velocity, take its velocity
+	- includes enemies (& other holdables)
+	- applies to players & holdables
+- enemies
+	- player damage when hitting side/bottom
+		- hurt trigger box (bigger than hold box)
+		- no damage when holding! what about falling?
+	- place down: face away from you so you don't take damage?
+	- bugs- worm, grasshopper
+	- some can't be picked up (spiky back)
 - items
 	- magic wand
 		- animate/deanimate fruits and veggies
+			- collide with Animatable: switch it with its stored prefab
 		- other weird uses
-		- E or Z to use? or up?
-	- urns
-		- in different rooms: set destScene to other's scene
-		- rotate urn to come out gravity rotated
+		- E or Z to use? or up? or just throw?
+	- keys & locked doors
 	- backpack
 		- stand on & press down while holding- put item in backpack
 		- can hold multiple items at once
@@ -29,7 +44,6 @@
 	- parachute- slow fall to cross gaps
 		- throw across gap puzzle
 		- glide back to wall for multiple walljumps
-	- keys & locked doors
 	- frog with sticky tongue- grapple on ceiling
 		- activated by jump key? or up/down? or on timer?
 	- bridge that lets you go through blocks
@@ -38,19 +52,13 @@
 	- juicier texture
 	- animate up/down
 	- collect animation
-- enemies
-	- bugs- worm, grasshopper
-	- pick up & throw (against wall?) to defeat
-	- hit with (solid?) item to defeat
-	- some can't be picked up (spiky back)
-	- bosses
 - health
 	- collectible heart fragments
 	- checkpoints
 	- if you're inside door or movable solid item after reset/recall, it squishes you and you respawn
 		- squishzone inside player
+- bosses
 - one way platforms
-- moving platforms
 - up key: look up?
 - scene transition fx
 - screen scroll
@@ -73,7 +81,6 @@
 - credits roll listing all the enemies
 - slippery ice
 - item spawn rule manipulation
-- moving platforms (run/jump/throw momentum)
 - npcs with dialog (mintty)
 	- can pick them up and they go "hey put me down!"
 	- trade them items
@@ -106,7 +113,12 @@
 - other heart colors: orange, yellow, green, blue, purple, white
 
 - puzzles
-	- put item on back of enemy to move it
+	- enemies
+		- put item on back of enemy to move it
+		- ride on flying enemy for a long time
+		- ride enemy across spikes into secret room
+		- carry enemy and drop in another room to use its behavior
+	- get around room reset mechanic
 	- crystals
 		- throw reset/recall crystal and quickly grab another item
 		- put down and regrab recall crystal to change its recall point
@@ -114,6 +126,7 @@
 	- teleport jar
 		- take teleport vase into its partner and enter limbo world
 		- teleport across scenes
+		- rotate jar to come out gravity rotated?
 	- backpack
 		- put multiple items in backpack
 		- take teleport vase into its partner in backpack

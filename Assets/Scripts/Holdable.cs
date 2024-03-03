@@ -10,17 +10,18 @@ public class Holdable : MonoBehaviour
     private const float throwForceSide = 5;
     private const float throwForceUp = 8;
 
-    private Rigidbody2D rb;
+    protected Rigidbody2D rb;
     [HideInInspector]
     public Vector3 holdOffset;
     private Vector3 dropOffset;
     private BoxCollider2D col;
-    private bool held = false;
+    protected bool held = false;
     [HideInInspector]
     public string id;
-    private SpriteRenderer sr;
+    protected SpriteRenderer sr;
     private bool groundSnapMute;
-    private bool throwing = false;
+    protected bool throwing = false;
+    protected bool dropping = false;
     protected Persistent persistent;
 
     public bool snapToGround = true;
@@ -50,7 +51,7 @@ public class Holdable : MonoBehaviour
         }
     }
 
-    private void Start()
+    protected virtual void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         col = GetComponent<BoxCollider2D>();
@@ -84,7 +85,7 @@ public class Holdable : MonoBehaviour
         return collider != null;
     }
 
-    private void FixedUpdate()
+    protected virtual void FixedUpdate()
     {
         if (held)
         {
@@ -124,6 +125,15 @@ public class Holdable : MonoBehaviour
     {
         GameObject collider = collision.collider.gameObject;
 
+        Enemy enemy = collider.GetComponent<Enemy>();
+        if (enemy != null)
+        {
+            if (throwing || dropping)
+            {
+                enemy.Defeat();
+            }
+        }
+
         if (collider.layer == LayerMask.NameToLayer("Solid"))
         {
             if (rb.constraints == RigidbodyConstraints2D.FreezeRotation)
@@ -139,6 +149,11 @@ public class Holdable : MonoBehaviour
             {
                 OnThrownLand();
                 throwing = false;
+            }
+            if (dropping)
+            {
+                OnDroppedLand();
+                dropping = false;
             }
         }
     }
@@ -199,6 +214,7 @@ public class Holdable : MonoBehaviour
             Release();
             transform.localPosition = newPos;
             rb.velocity = Vector2.zero;
+            dropping = true;
             soundManager.PlaySound(dropSound);
             return true;
         }
@@ -227,6 +243,11 @@ public class Holdable : MonoBehaviour
     }
 
     protected virtual void OnThrownLand()
+    {
+
+    }
+
+    protected virtual void OnDroppedLand()
     {
 
     }
