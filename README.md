@@ -3,6 +3,7 @@
 ## TODO
 
 - Bugs
+	- spawn thump is back
 	- enemies get stuck walking against items- turn around? or push? or ignore? (cant because then they couldnt carry items)
 	- enemies standing on top of items is weird
 	- enemy drop off corner- is this the wrong drop check issue?
