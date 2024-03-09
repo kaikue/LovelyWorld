@@ -165,7 +165,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1945572163
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -249,7 +249,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
-  m_Constraints: 5
+  m_Constraints: 4
 --- !u!114 &6959664917163330767
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -263,6 +263,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   holdOffset: {x: 0, y: 0, z: 0}
+  id: 
+  snapToGround: 1
   landSound: {fileID: 8300000, guid: 3f1e30ad024f6c34ea5abbc5533b0d51, type: 3}
   throwSound: {fileID: 8300000, guid: b07016a7bb087404b8d58dbfbe62e2c8, type: 3}
   dropSound: {fileID: 8300000, guid: 8f92e86d12bb55941a25267a763807b5, type: 3}

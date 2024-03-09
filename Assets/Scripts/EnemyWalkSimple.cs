@@ -37,11 +37,11 @@ public class EnemyWalkSimple : EnemyMove
         {
             //stuck in place
             left = true;
-            return new Vector2(0, baseVel.y);
+            return baseVel;
         }
 
         int dir = left ? -1 : 1;
-        Vector2 newVel = new Vector2(dir * moveSpeed, baseVel.y);
+        Vector2 newVel = baseVel + dir * moveSpeed * Vector2.right;
         return newVel;
     }
 

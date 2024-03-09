@@ -3,7 +3,11 @@
 ## TODO
 
 - Bugs
+	- should player be able to push solid items?
+	- make most holdables (jars) thinner than 1 tile so they can fit in gaps
+	- drop item on enemy shouldn't defeat it
 	- spawn thump is back
+	- only play land sound if velocity is high enough
 	- enemies get stuck walking against items- turn around? or push? or ignore? (cant because then they couldnt carry items)
 	- enemies standing on top of items is weird
 	- enemy drop off corner- is this the wrong drop check issue?
@@ -14,10 +18,9 @@
 	- thrown solids will slide along nonsolid items- should all items just be solid?
 	- thrown item landing on head is weird
 		- gets stuck in midair
-- moving platforms (run/jump/throw momentum)
-	- if standing on solid rigidbody with velocity, take its velocity
-	- includes enemies (& other holdables)
-	- applies to players & holdables
+- moving platforms
+	- keep momentum when jumping (apply xforce)
+	- make horiz/vert moving platforms to test
 - enemies
 	- player damage when hitting side/bottom
 		- hurt trigger box (bigger than hold box)
@@ -119,6 +122,8 @@
 		- ride on flying enemy for a long time
 		- ride enemy across spikes into secret room
 		- carry enemy and drop in another room to use its behavior
+		- stand on enemy (in natural location or after moving it) and use its extra jump/throw velocity
+		- enemy stack
 	- get around room reset mechanic
 	- crystals
 		- throw reset/recall crystal and quickly grab another item

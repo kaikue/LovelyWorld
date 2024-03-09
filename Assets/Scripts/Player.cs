@@ -35,6 +35,7 @@ public class Player : MonoBehaviour
     private bool downHeld = false;
     private bool downPressQueued = false;
     private float xForce = 0;
+    private float prevXVel = 0;
 
     private bool canJump = false;
     private bool wasOnGround = false;
@@ -130,6 +131,33 @@ public class Player : MonoBehaviour
         UpdateHoldSpot();
     }
 
+    private Vector2 GetGroundVelocity()
+    {
+        Vector2 startPoint = rb.position + ec.points[0] + Vector2.down * 0.02f;
+        Vector2 endPoint = rb.position + ec.points[1] + Vector2.down * 0.02f;
+        RaycastHit2D[] hits = Physics2D.RaycastAll(startPoint, endPoint - startPoint, Vector2.Distance(startPoint, endPoint), LayerMask.GetMask("Solid"));
+        Vector2 totalVel = Vector2.zero;
+        int totalGrounds = 0;
+        foreach (RaycastHit2D hit in hits)
+        {
+            if (hit.collider != null)
+            {
+                Rigidbody2D hitRB = hit.collider.GetComponent<Rigidbody2D>();
+                if (hitRB != null)
+                {
+                    totalVel += hitRB.velocity;
+                    totalGrounds++;
+                }
+            }
+        }
+
+        if (totalGrounds == 0)
+        {
+            return Vector2.zero;
+        }
+        return totalVel / totalGrounds;
+    }
+
     private Collider2D RaycastCollision(Vector2 startPoint, Vector2 endPoint)
     {
         RaycastHit2D hit = Physics2D.Raycast(startPoint, endPoint - startPoint, Vector2.Distance(startPoint, endPoint), LayerMask.GetMask("Solid"));
@@ -147,7 +175,6 @@ public class Player : MonoBehaviour
     private void FixedUpdate()
     {
         float xInput = Input.GetAxis("Horizontal");
-        float prevXVel = rb.velocity.x;
         float xVel;
         float dx = runAcceleration * Time.fixedDeltaTime * xInput;
         if (prevXVel != 0 && Mathf.Sign(xInput) != Mathf.Sign(prevXVel))
@@ -199,6 +226,8 @@ public class Player : MonoBehaviour
             }
         }
 
+        prevXVel = xVel;
+
         if (xInput != 0)
         {
             facingLeft = xInput < 0;
@@ -236,6 +265,10 @@ public class Player : MonoBehaviour
             yVel = 0;
 
             SetAnimState(xVel == 0 ? AnimState.Stand : AnimState.Run);
+
+            Vector2 groundVel = GetGroundVelocity();
+            xVel += groundVel.x;
+            yVel += groundVel.y;
         }
         else
         {

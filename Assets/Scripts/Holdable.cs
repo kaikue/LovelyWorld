@@ -77,6 +77,36 @@ public class Holdable : MonoBehaviour
         return hit.collider;
     }
 
+
+    private Vector2 GetGroundVelocity()
+    {
+        Vector2 startPoint = new Vector2(col.bounds.min.x, col.bounds.min.y) + Vector2.down * 0.02f;
+        Vector2 endPoint = new Vector2(col.bounds.max.x, col.bounds.min.y) + Vector2.down * 0.02f;
+        Debug.DrawLine(startPoint, endPoint);
+        RaycastHit2D[] hits = Physics2D.RaycastAll(startPoint, endPoint - startPoint, Vector2.Distance(startPoint, endPoint), LayerMask.GetMask("Solid"));
+        Vector2 totalVel = Vector2.zero;
+        int totalGrounds = 0;
+        foreach (RaycastHit2D hit in hits)
+        {
+            if (hit.collider != null)
+            {
+                Rigidbody2D hitRB = hit.collider.gameObject.GetComponent<Rigidbody2D>();
+                if (hitRB != null)
+                {
+                    print(name + " hit " + hitRB);
+                    totalVel += hitRB.velocity;
+                    totalGrounds++;
+                }
+            }
+        }
+
+        if (totalGrounds == 0)
+        {
+            return Vector2.zero;
+        }
+        return totalVel / totalGrounds;
+    }
+
     protected bool CheckSide(Vector2 pos1, Vector2 pos2, Vector2 direction)
     {
         Vector2 startPoint = pos1 + direction * 0.02f;
@@ -92,6 +122,7 @@ public class Holdable : MonoBehaviour
             return;
         }
 
+        float xVel = rb.velocity.x;
         float yVel;
 
         bool onGround = CheckSide(new Vector2(col.bounds.min.x, col.bounds.min.y), new Vector2(col.bounds.max.x, col.bounds.min.y), Vector2.down);
@@ -99,11 +130,13 @@ public class Holdable : MonoBehaviour
 
         if (onGround)
         {
-            yVel = 0;
             /*if (rb.velocity.y < 0)
             {
                 soundManager.PlaySound(landSound);
             }*/
+            Vector2 groundVel = GetGroundVelocity();
+            xVel = groundVel.x;
+            yVel = groundVel.y;
         }
         else
         {
@@ -116,7 +149,7 @@ public class Holdable : MonoBehaviour
             //soundManager.PlaySound(landSound);
         }
 
-        Vector2 vel = new Vector2(rb.velocity.x, yVel);
+        Vector2 vel = new Vector2(xVel, yVel);
         rb.velocity = vel;
         //rb.MovePosition(rb.position + vel * Time.fixedDeltaTime);
     }
@@ -138,7 +171,7 @@ public class Holdable : MonoBehaviour
         {
             if (rb.constraints == RigidbodyConstraints2D.FreezeRotation)
             {
-                rb.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
+                //rb.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
                 //rb.velocity = Vector2.zero;
             }
             if (!groundSnapMute)
