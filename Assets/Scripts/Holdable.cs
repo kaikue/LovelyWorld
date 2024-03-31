@@ -93,7 +93,6 @@ public class Holdable : MonoBehaviour
                 Rigidbody2D hitRB = hit.collider.gameObject.GetComponent<Rigidbody2D>();
                 if (hitRB != null)
                 {
-                    print(name + " hit " + hitRB);
                     totalVel += hitRB.velocity;
                     totalGrounds++;
                 }

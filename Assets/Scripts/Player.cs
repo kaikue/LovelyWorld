@@ -15,7 +15,7 @@ public class Player : MonoBehaviour
 
     private const float runAcceleration = 15;
     private const float maxRunSpeed = 7;
-    private const float jumpForce = 8;
+    private const float defaultJumpForce = 8;
     private const float walljumpUpForce = 8 / 1.414f;
     private const float walljumpSideForce = 8 / 1.414f;
     private const float jarLaunchForce = 4;
@@ -37,6 +37,7 @@ public class Player : MonoBehaviour
     private float xForce = 0;
     private float prevXVel = 0;
 
+    private float jumpForce = defaultJumpForce;
     private bool canJump = false;
     private bool wasOnGround = false;
     private bool jumpRising = false;
@@ -242,6 +243,7 @@ public class Player : MonoBehaviour
         bool onGround = CheckSide(0, 1, Vector2.down); //BoxcastTiles(Vector2.down, 0.15f) != null;
         bool onCeiling = CheckSide(2, 3, Vector2.up); //BoxcastTiles(Vector2.up, 0.15f) != null;
 
+        Vector2 groundVel = Vector2.zero;
         if (onGround)
         {
             canJump = true;
@@ -266,7 +268,7 @@ public class Player : MonoBehaviour
 
             SetAnimState(xVel == 0 ? AnimState.Stand : AnimState.Run);
 
-            Vector2 groundVel = GetGroundVelocity();
+            groundVel = GetGroundVelocity();
             xVel += groundVel.x;
             yVel += groundVel.y;
         }
@@ -294,6 +296,8 @@ public class Player : MonoBehaviour
 
         if (jumpQueued)
         {
+            /*
+            //walljump
             bool onRight = CheckSide(1, 2, Vector2.right);
             bool onLeft = CheckSide(3, 4, Vector2.left);
             if (!onGround)
@@ -323,13 +327,16 @@ public class Player : MonoBehaviour
                     SetAnimState(AnimState.Jump);
                 }
             }
+            */
 
+            //normal jump
             if (canJump)
             {
                 StopCancelQueuedJump();
                 jumpQueued = false;
                 canJump = false;
-                xForce = 0;
+                xForce = groundVel.x;
+                jumpForce = defaultJumpForce + groundVel.y;
                 jumpRising = true;
                 jumpTimer = 0;
                 soundManager.PlaySound(jumpSound, true);
@@ -339,7 +346,7 @@ public class Player : MonoBehaviour
 
         if (jumpRising)
         {
-            yVel = jumpForce; //Mathf.Max(jumpForce, yVel + jumpForce);
+            yVel = jumpForce;
             jumpTimer += Time.fixedDeltaTime;
             if (jumpTimer >= maxJumpTime)
             {

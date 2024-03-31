@@ -3,6 +3,8 @@
 ## TODO
 
 - Bugs
+	- player can get moving platform stuck inside them
+	- set xforce to 0 when on ground? (prevent skidding after jumping off sideways moving platform)
 	- should player be able to push solid items?
 	- make most holdables (jars) thinner than 1 tile so they can fit in gaps
 	- drop item on enemy shouldn't defeat it
@@ -19,8 +21,7 @@
 	- thrown item landing on head is weird
 		- gets stuck in midair
 - moving platforms
-	- keep momentum when jumping (apply xforce)
-	- make horiz/vert moving platforms to test
+	- test jump force keeps vertical momentum when jumping
 - enemies
 	- player damage when hitting side/bottom
 		- hurt trigger box (bigger than hold box)
@@ -28,8 +29,15 @@
 	- place down: face away from you so you don't take damage?
 	- bugs- worm, grasshopper
 	- some can't be picked up (spiky back)
+- health
+	- collectible heart fragments
+	- checkpoints
+	- if you're inside door or movable solid item after reset/recall, it squishes you and you respawn
+		- squishzone inside player
+		- make sure this doesn't apply to moving 1 way platforms
 - items
 	- magic wand
+		- magic particles when thrown
 		- animate/deanimate fruits and veggies
 			- collide with Animatable: switch it with its stored prefab
 		- other weird uses
@@ -56,11 +64,6 @@
 	- juicier texture
 	- animate up/down
 	- collect animation
-- health
-	- collectible heart fragments
-	- checkpoints
-	- if you're inside door or movable solid item after reset/recall, it squishes you and you respawn
-		- squishzone inside player
 - bosses
 - one way platforms
 - up key: look up?
