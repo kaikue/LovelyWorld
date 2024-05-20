@@ -34,6 +34,8 @@ public class Player : MonoBehaviour
     private bool grabQueued = false;
     private bool downHeld = false;
     private bool downPressQueued = false;
+    private bool upHeld = false;
+    private bool upPressQueued = false;
     private float xForce = 0;
     private float prevXVel = 0;
 
@@ -80,6 +82,8 @@ public class Player : MonoBehaviour
     private List<Holdable> validHoldables = new List<Holdable>();
     private Holdable heldItem = null;
 
+    private List<EnterDoor> validDoors = new List<EnterDoor>();
+
     private void Start()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
@@ -124,6 +128,13 @@ public class Player : MonoBehaviour
         if (downHeld && !downWasHeld)
         {
             downPressQueued = true;
+        }
+
+        bool upWasHeld = upHeld;
+        upHeld = Input.GetAxis("Vertical") > 0;
+        if (upHeld && !upWasHeld)
+        {
+            upPressQueued = true;
         }
 
         sr.flipX = facingLeft;
@@ -397,6 +408,15 @@ public class Player : MonoBehaviour
         }
         grabQueued = false;
 
+        if (upPressQueued)
+        {
+            if (validDoors.Count > 0)
+            {
+                validDoors[0].Enter();
+            }
+        }
+        upPressQueued = false;
+
         if (downPressQueued)
         {
             TeleportJar jar = GetJarBelow();
@@ -457,6 +477,13 @@ public class Player : MonoBehaviour
             ChangeSceneWithHeld(persistent.limboExitScene);
         }
 
+        EnterDoor enterDoor = collider.GetComponent<EnterDoor>();
+        if (enterDoor != null)
+        {
+            enterDoor.ShowEnterable();
+            validDoors.Add(enterDoor);
+        }
+
         /*Gem gem = collider.GetComponent<Gem>();
         if (gem != null)
         {
@@ -477,6 +504,13 @@ public class Player : MonoBehaviour
         if (grabArea != null)
         {
             validHoldables.Remove(grabArea.GetComponentInParent<Holdable>());
+        }
+
+        EnterDoor enterDoor = collider.GetComponent<EnterDoor>();
+        if (enterDoor != null)
+        {
+            enterDoor.HideEnterable();
+            validDoors.Remove(enterDoor);
         }
     }
 

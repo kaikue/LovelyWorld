@@ -20,8 +20,7 @@
 	- thrown solids will slide along nonsolid items- should all items just be solid?
 	- thrown item landing on head is weird
 		- gets stuck in midair
-- moving platforms
-	- test jump force keeps vertical momentum when jumping
+	- make sure soul gateway spawns fully out of terrain
 - enemies
 	- player damage when hitting side/bottom
 		- hurt trigger box (bigger than hold box)
@@ -29,9 +28,12 @@
 	- place down: face away from you so you don't take damage?
 	- bugs- worm, grasshopper
 	- some can't be picked up (spiky back)
+	- defeat enemy that hurt you to guaranteed drop a heart
 - health
-	- collectible heart fragments
+	- collectible heart fragments to increase health
+	- heal with hearts
 	- checkpoints
+		- activate somehow?
 	- if you're inside door or movable solid item after reset/recall, it squishes you and you respawn
 		- squishzone inside player
 		- make sure this doesn't apply to moving 1 way platforms
@@ -49,7 +51,6 @@
 		- extract by stand on & press down? or up? or use while holding?
 		- enter urn while its partner is in the backpack- paradox if backpack held, enter backpack zone if not
 			- theres a goblin npc inside who sorts all the items
-			- "sketchy shopkeep" music
 	- ladders
 	- torches- melt ice above you, light in darkness
 		- throw and slide along ice puzzle
@@ -59,13 +60,22 @@
 	- frog with sticky tongue- grapple on ceiling
 		- activated by jump key? or up/down? or on timer?
 	- bridge that lets you go through blocks
+- one way terrain
+- decoration objects
+	- grass
+	- clover
+	- flowers
+	- snails
+	- worms
+	- grasshoppers
+	- butterflies
 - background art
-- collectible hearts?
-	- juicier texture
+- collectible petals
+	- emit particles
 	- animate up/down
 	- collect animation
 - bosses
-- one way platforms
+- down + jump to fall through one ways?
 - up key: look up?
 - scene transition fx
 - screen scroll
@@ -83,6 +93,7 @@
 	- pause
 - animations
 - story
+	- fix dream world
 - title screen
 	- logo
 - credits roll listing all the enemies
@@ -91,19 +102,20 @@
 - npcs with dialog (mintty)
 	- can pick them up and they go "hey put me down!"
 	- trade them items
-- doors? to dream world
 - throw object in midair pushes you back?- sorta double jump
 
 - design
 	- everything serves at least two purposes
-	- progression: world state change, carried item, knowledge of secrets, collectible hearts
+	- progression- petal collection, unlocked zones
+		- world state change, carried item, knowledge of secrets
 	- non euclidean room transitions?
 
 - world
-	- center- veggie garden + love + magic (starting area) (slam-funk) (red hearts)
-	- left- tide pools & cliffs (octopus, crab etc.) + sunset
+	- center- veggie garden + love + magic (starting area) (red rose petals)
+	- ? - ruins + angels + rain (sacrifice game reference) (crumbling/throw blocks)
 	- up- popsicle ice zone (fruits?)
-	- right- gears jungle (robots, moving/rotating platforms) (juhani stage 2)
+	- right- gears jungle (robots, moving/rotating platforms)
+	- left- tide pools & cliffs (octopus, crab etc.) + sunset
 	- way up- saturn palace
 	- down?- hollow earth cave (bigfoot, faceless birds, atlantis etc.)
 	- limbo
@@ -117,7 +129,39 @@
 		- connection to limbo
 	- secret lagoon
 	- slumbering beast
-- other heart colors: orange, yellow, green, blue, purple, white
+- other petal colors: orange, yellow, green, blue, purple, white
+
+- soul world/soulspace/soulside
+	- soul tokens- somewhat hard to get (find in special room, buy from NPC)
+		- when thrown, create gateway to soul world
+			- enter with up
+				- test
+				- little arrow appears overtop door
+	- soul world music
+	- silhouette tiles
+	- flipped horizontally
+	- can't walk between scenes in soul world (glowy border)
+	- items replaced with item souls- intangible, can be picked up and moved, controls spawn position/scene in main world
+		- position permanent even when reloading
+		- can be placed in main world to spawn item in soul world
+	- npcs replaced with npc souls- mess with them somehow
+	- some decoration objects in main world have soul npcs in soul world
+	- soul petals (rare)
+	- big meta puzzle with dream world
+
+- collectible petals
+	- big flower at center of zone
+	- fill with min% # shards to progress
+		- go to soul world and fight corrupted flower soul
+		- win: destroy thorns barrier to next zone
+	- fill with 100% shards to unlock bonus area
+	- each zone has different color petal
+	- need to carry each petal all the way back? or collect automatically?
+		- might depend on # of petals
+	- teleport between filled flowers
+		- little flowers sprout next to big one
+		- colored same as completed areas
+		- pull one out and throw it in the fountain to teleport to the big one of its area
 
 - puzzles
 	- enemies
@@ -128,6 +172,7 @@
 		- stand on enemy (in natural location or after moving it) and use its extra jump/throw velocity
 		- enemy stack
 	- get around room reset mechanic
+		- box spawns on button and locks something immediately on room enter; grab it and exit+reenter room to have it not be there
 	- crystals
 		- throw reset/recall crystal and quickly grab another item
 		- put down and regrab recall crystal to change its recall point
@@ -139,6 +184,20 @@
 	- backpack
 		- put multiple items in backpack
 		- take teleport vase into its partner in backpack
+	- use moving platform jump/throw velocity
+
+- music
+	- title: ?
+	- garden: good mood, slam-funk
+	- funny miniboss: L05 chase
+	- ice: juhani ending
+	- ruins: echoes of eternity
+	- jungle: face the facts, juhani stage 2?
+	- tide pool: angel eyes, highrise
+	- soul world: drm
+	- flower boss fight: ?
+	- backpack: sketchy shopkeep
+	- limbo: lost
 
 - pre-launch
 	- make sure all music is preload
@@ -149,9 +208,16 @@
 - Music
 	- "Slam-Funk" composed and arranged by Haley Halcyon: https://opengameart.org/content/nes-chiptune-slam-funk
 	- "4 Chiptunes (Adventure)" by SubspaceAudio: https://opengameart.org/content/4-chiptunes-adventure
+	- "5 Chiptunes (Action)" by SubspaceAudio: https://opengameart.org/content/5-chiptunes-action
 	- "Angel Eyes (Chiptune Edit)" by Kim Lightyear: https://opengameart.org/content/angel-eyes-chiptune-edit
 	- "Lost in a bad place (horror ambience loop)" by congusbongus: https://opengameart.org/content/lost-in-a-bad-place-horror-ambience-loop
 	- "The Sketchy Shopkeep" by Cal McEachern: https://opengameart.org/content/chiptune-rpg-soundtrack-6-loops
+	- "10 Free Chiptune Tracks (A Bag of Chips)" by Zane Little Music: https://opengameart.org/content/10-free-chiptune-tracks-a-bag-of-chips
+	- "Good Mood Theme (8-bit)" by wyver9: https://opengameart.org/content/good-mood-theme-8-bit
+	- "8-bit Beat'em Up Soundtrack" by wyver9: https://opengameart.org/content/8-bit-beatem-up-soundtrack
+	- "Echoes of Eternity" by Trevor Lentz: https://opengameart.org/content/echoes-of-eternity
+	- "Highrise" by Jan125: https://opengameart.org/content/highrise
+	- "Dreamlike State" by Tarush Singhal: https://opengameart.org/content/dreamlike-state
 - Sound effects
 	- "Sound effects Mini Pack1.5" by phoenix1291: https://opengameart.org/content/sound-effects-mini-pack15
 	- "512 Sound Effects (8-bit style)" by SubspaceAudio: https://opengameart.org/content/512-sound-effects-8-bit-style

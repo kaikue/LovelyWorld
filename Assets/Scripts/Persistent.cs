@@ -5,6 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class Persistent : MonoBehaviour
 {
+    public GameObject soulExitGatewayPrefab;
+    public AudioClip soulWorldMusic;
+
     [HideInInspector]
     public bool destroying = false;
 
@@ -20,6 +23,10 @@ public class Persistent : MonoBehaviour
     public string limboExitScene;
     [HideInInspector]
     public Vector3? recallPos = null;
+    [HideInInspector]
+    public bool loadingSoulWorld = false;
+    [HideInInspector]
+    public Vector3? soulGatewayPos = null;
 
     private const float musicFadeTime = 2;
     private const float musicEndTime = 0.5f;
@@ -27,7 +34,8 @@ public class Persistent : MonoBehaviour
     private AudioSource audioSource;
     private Coroutine crtFadeMusic;
 
-    private Player player;
+    [HideInInspector]
+    public Player player;
 
     private void Awake()
     {
@@ -54,6 +62,12 @@ public class Persistent : MonoBehaviour
     public void OnSceneLoaded(Scene scene, LoadSceneMode loadSceneMode)
     {
         player = FindObjectOfType<Player>();
+
+        if (loadingSoulWorld)
+        {
+            SetupSoulWorld();
+            loadingSoulWorld = false;
+        }
 
         if (destinationZone != null)
         {
@@ -141,4 +155,38 @@ public class Persistent : MonoBehaviour
         return null;
     }
 
+    private void SetupSoulWorld()
+    {
+        //spawn exit soul gateway
+        //TODO make sure it flips x
+        GameObject soulGateway = Instantiate(soulExitGatewayPrefab, soulGatewayPos.Value, Quaternion.identity);
+
+        //flip each object x
+        //TODO make sure this is only parents and not children (but holdable check should be on children too)
+        GameObject[] levelObjects = GameObject.FindGameObjectsWithTag("Untagged"); //excludes player, camera, persistent
+        print(levelObjects.Length);
+        foreach (GameObject go in levelObjects)
+        {
+            print(go);
+            go.transform.localScale = new Vector3(-go.transform.localScale.x, go.transform.localScale.y, go.transform.localScale.z);
+            
+            Holdable holdable = go.GetComponent<Holdable>();
+            if (holdable != null)
+            {
+                holdable.InstantiateAsSoul();
+            }
+        }
+
+        //move player to soul gateway pos
+        player.transform.position = soulGateway.transform.position;
+
+        //TODO disable screen transitions
+
+        //TODO add border
+
+        //set soul world music
+        SetMusic(soulWorldMusic);
+
+        //TODO silhouette palette
+    }
 }

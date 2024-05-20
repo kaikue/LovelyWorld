@@ -32,13 +32,14 @@ public class Holdable : MonoBehaviour
     public AudioClip dropSound;
     public AudioClip failSound;
     public AudioClip pickupSound;
+    public GameObject soulPrefab;
 
     private void Awake()
     {
         id = name + " " + SceneManager.GetActiveScene().name + " " + transform.position;
 
         Persistent[] persistents = FindObjectsOfType<Persistent>();
-        foreach(Persistent p in persistents)
+        foreach (Persistent p in persistents)
         {
             if (p.heldItem != null)
             {
@@ -282,5 +283,10 @@ public class Holdable : MonoBehaviour
     protected virtual void OnDroppedLand()
     {
 
+    }
+
+    public void InstantiateAsSoul()
+    {
+        //TODO
     }
 }

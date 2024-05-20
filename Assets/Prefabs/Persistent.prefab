@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2350821997782689138}
   m_Layer: 0
   m_Name: Persistent
-  m_TagString: Untagged
+  m_TagString: Persistent
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -46,9 +46,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f56581b5cc49d9b42a92c06591b56109, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  soulExitGatewayPrefab: {fileID: 797818952437925958, guid: 77ffdf4b295fe204abe9c0aec0a3d8c2, type: 3}
   destroying: 0
   destinationZone: 
   heldItem: {fileID: 0}
+  sendingJarID: 
+  sendingJarType: 
+  limboExitScene: 
+  loadingSoulWorld: 0
+  player: {fileID: 0}
 --- !u!114 &1054669610597064623
 MonoBehaviour:
   m_ObjectHideFlags: 0
