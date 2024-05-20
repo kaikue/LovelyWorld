@@ -144,6 +144,7 @@
 	- items replaced with item souls- intangible, can be picked up and moved, controls spawn position/scene in main world
 		- position permanent even when reloading
 		- can be placed in main world to spawn item in soul world
+	- enemies replaced with enemy souls- move and ???
 	- npcs replaced with npc souls- mess with them somehow
 	- some decoration objects in main world have soul npcs in soul world
 	- fluffy dream particles
@@ -203,6 +204,7 @@
 - pre-launch
 	- make sure all music is preload
 	- unmute persistent music
+	- make sure all sprites use paletteswap material
 
 ## Credits
 

@@ -80,8 +80,40 @@ PrefabInstance:
       propertyPath: m_WasSpriteAssigned
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6959664917163330767, guid: 505f35ed3cf3478448f510d34905a661, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1522341686539882151, guid: 505f35ed3cf3478448f510d34905a661, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7084746980216594239}
   m_SourcePrefab: {fileID: 100100000, guid: 505f35ed3cf3478448f510d34905a661, type: 3}
+--- !u!1 &396893316281964132 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1522341686539882151, guid: 505f35ed3cf3478448f510d34905a661, type: 3}
+  m_PrefabInstance: {fileID: 1198658907531909315}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7084746980216594239
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 396893316281964132}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2feb771138e89174c9e2de52be0e4887, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  holdOffset: {x: 0, y: 0, z: 0}
+  id: 
+  snapToGround: 1
+  landSound: {fileID: 8300000, guid: 3f1e30ad024f6c34ea5abbc5533b0d51, type: 3}
+  throwSound: {fileID: 8300000, guid: b07016a7bb087404b8d58dbfbe62e2c8, type: 3}
+  dropSound: {fileID: 8300000, guid: 8f92e86d12bb55941a25267a763807b5, type: 3}
+  failSound: {fileID: 8300000, guid: ad72f2965bb31d045bc8feb61f7c71c0, type: 3}
+  pickupSound: {fileID: 8300000, guid: 6fec08fa99eeb874aa3417b55a2725f3, type: 3}
+  soulPrefab: {fileID: 8950441464616755708, guid: 488acf11b093fe34d97ddd561f343d00, type: 3}
+  smashSound: {fileID: 8300000, guid: ae85340b13dad684c9d6a92da0d4c366, type: 3}
+  soulGatewayPrefab: {fileID: 5884675443420871450, guid: 7d7f18b033490c94f8b80ec58ebd135c, type: 3}

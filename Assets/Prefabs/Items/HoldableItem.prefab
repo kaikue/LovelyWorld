@@ -270,3 +270,4 @@ MonoBehaviour:
   dropSound: {fileID: 8300000, guid: 8f92e86d12bb55941a25267a763807b5, type: 3}
   failSound: {fileID: 8300000, guid: ad72f2965bb31d045bc8feb61f7c71c0, type: 3}
   pickupSound: {fileID: 8300000, guid: 6fec08fa99eeb874aa3417b55a2725f3, type: 3}
+  soulPrefab: {fileID: 8950441464616755708, guid: 488acf11b093fe34d97ddd561f343d00, type: 3}

@@ -47,6 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   soulExitGatewayPrefab: {fileID: 797818952437925958, guid: 77ffdf4b295fe204abe9c0aec0a3d8c2, type: 3}
+  soulWorldMusic: {fileID: 8300000, guid: 818b884a2af37974e95d3122cafdb953, type: 3}
   destroying: 0
   destinationZone: 
   heldItem: {fileID: 0}

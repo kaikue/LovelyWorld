@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &1867439139535142257
+--- !u!1001 &7572286714003205979
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1522341686539882151, guid: 505f35ed3cf3478448f510d34905a661, type: 3}
       propertyPath: m_Name
-      value: ResetCrystal
+      value: ItemSoul
       objectReference: {fileID: 0}
     - target: {fileID: 5350788888430327954, guid: 505f35ed3cf3478448f510d34905a661, type: 3}
       propertyPath: m_LocalPosition.x
@@ -55,44 +55,37 @@ PrefabInstance:
     - target: {fileID: 7261045726269103895, guid: 505f35ed3cf3478448f510d34905a661, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: b18f8ac34c4e3414da4c371fec3bb9bc, type: 3}
+      objectReference: {fileID: 21300000, guid: c3c837c989d89b542b52211234a651f5, type: 3}
     - target: {fileID: 7261045726269103895, guid: 505f35ed3cf3478448f510d34905a661, type: 3}
       propertyPath: m_WasSpriteAssigned
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 6959664917163330767, guid: 505f35ed3cf3478448f510d34905a661, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 1522341686539882151, guid: 505f35ed3cf3478448f510d34905a661, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 5413259846417254366}
+      addedObject: {fileID: 4479493205975046341}
   m_SourcePrefab: {fileID: 100100000, guid: 505f35ed3cf3478448f510d34905a661, type: 3}
---- !u!1 &921561934684074966 stripped
+--- !u!1 &8950441464616755708 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1522341686539882151, guid: 505f35ed3cf3478448f510d34905a661, type: 3}
-  m_PrefabInstance: {fileID: 1867439139535142257}
+  m_PrefabInstance: {fileID: 7572286714003205979}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &5413259846417254366
+--- !u!114 &4479493205975046341
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 921561934684074966}
+  m_GameObject: {fileID: 8950441464616755708}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36825dfffc622f34a8bf6ce1e372e236, type: 3}
+  m_Script: {fileID: 11500000, guid: dc22407c9df197445809d95a4eda7874, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  holdOffset: {x: 0, y: 0, z: 0}
-  id: 
-  snapToGround: 1
-  landSound: {fileID: 8300000, guid: 3f1e30ad024f6c34ea5abbc5533b0d51, type: 3}
-  throwSound: {fileID: 8300000, guid: b07016a7bb087404b8d58dbfbe62e2c8, type: 3}
-  dropSound: {fileID: 8300000, guid: 8f92e86d12bb55941a25267a763807b5, type: 3}
-  failSound: {fileID: 8300000, guid: ad72f2965bb31d045bc8feb61f7c71c0, type: 3}
-  pickupSound: {fileID: 8300000, guid: 6fec08fa99eeb874aa3417b55a2725f3, type: 3}
-  soulPrefab: {fileID: 8950441464616755708, guid: 488acf11b093fe34d97ddd561f343d00, type: 3}
-  smashSound: {fileID: 8300000, guid: ae85340b13dad684c9d6a92da0d4c366, type: 3}
+  sprites:
+  - {fileID: 21300000, guid: c3c837c989d89b542b52211234a651f5, type: 3}
+  - {fileID: 21300000, guid: 6f67076d8c55c9e4a81a66f14f1076bf, type: 3}
+  frameTime: 0.4

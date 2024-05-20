@@ -63,6 +63,12 @@ public class Persistent : MonoBehaviour
     {
         player = FindObjectOfType<Player>();
 
+        BGMHolder bgm = FindObjectOfType<BGMHolder>();
+        if (bgm != null)
+        {
+            SetMusic(bgm.music);
+        }
+
         if (loadingSoulWorld)
         {
             SetupSoulWorld();
@@ -100,12 +106,6 @@ public class Persistent : MonoBehaviour
             player.TeleportToJarPartner(sendingJarID, sendingJarType);
             sendingJarID = null;
             sendingJarType = null;
-        }
-
-        BGMHolder bgm = FindObjectOfType<BGMHolder>();
-        if (bgm != null)
-        {
-            SetMusic(bgm.music);
         }
     }
 
@@ -163,10 +163,16 @@ public class Persistent : MonoBehaviour
 
         //flip each object x
         //TODO make sure this is only parents and not children (but holdable check should be on children too)
-        GameObject[] levelObjects = GameObject.FindGameObjectsWithTag("Untagged"); //excludes player, camera, persistent
+        
+        GameObject[] levelObjects = SceneManager.GetActiveScene().GetRootGameObjects();
+        //GameObject.FindGameObjectsWithTag("Untagged"); //excludes player, camera, persistent
         print(levelObjects.Length);
         foreach (GameObject go in levelObjects)
         {
+            if (go.CompareTag("Player") || go.CompareTag("MainCamera") || go.CompareTag("Persistent"))
+            {
+                continue;
+            }
             print(go);
             go.transform.localScale = new Vector3(-go.transform.localScale.x, go.transform.localScale.y, go.transform.localScale.z);
             

@@ -94,6 +94,6 @@ MonoBehaviour:
   dropSound: {fileID: 8300000, guid: 8f92e86d12bb55941a25267a763807b5, type: 3}
   failSound: {fileID: 8300000, guid: ad72f2965bb31d045bc8feb61f7c71c0, type: 3}
   pickupSound: {fileID: 8300000, guid: 6fec08fa99eeb874aa3417b55a2725f3, type: 3}
+  soulPrefab: {fileID: 8950441464616755708, guid: 488acf11b093fe34d97ddd561f343d00, type: 3}
   smashSound: {fileID: 8300000, guid: ae85340b13dad684c9d6a92da0d4c366, type: 3}
-  grabSound: {fileID: 8300000, guid: ea239563a33167c44bd715ff6b60ee2e, type: 3}
   echoPrefab: {fileID: 8344961048911025534, guid: f3188a5b582a500449125dae62ccbf3d, type: 3}
