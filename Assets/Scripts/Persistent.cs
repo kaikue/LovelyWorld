@@ -165,16 +165,15 @@ public class Persistent : MonoBehaviour
         //TODO make sure this is only parents and not children (but holdable check should be on children too)
         
         GameObject[] levelObjects = SceneManager.GetActiveScene().GetRootGameObjects();
-        //GameObject.FindGameObjectsWithTag("Untagged"); //excludes player, camera, persistent
-        print(levelObjects.Length);
         foreach (GameObject go in levelObjects)
         {
             if (go.CompareTag("Player") || go.CompareTag("MainCamera") || go.CompareTag("Persistent"))
             {
                 continue;
             }
-            print(go);
-            go.transform.localScale = new Vector3(-go.transform.localScale.x, go.transform.localScale.y, go.transform.localScale.z);
+            Vector3 scale = new Vector3(-1, 1, 1);
+            go.transform.position = Vector3.Scale(go.transform.position, scale);
+            go.transform.localScale = Vector3.Scale(go.transform.localScale, scale);
             
             Holdable holdable = go.GetComponent<Holdable>();
             if (holdable != null)

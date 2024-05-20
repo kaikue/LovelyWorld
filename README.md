@@ -150,6 +150,7 @@
 	- fluffy dream particles
 	- soul petals (rare)
 	- big meta puzzle with dream world
+	- respawn enter portal when exiting soul world
 
 - collectible petals
 	- big flower at center of zone
