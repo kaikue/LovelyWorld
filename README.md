@@ -146,6 +146,7 @@
 		- can be placed in main world to spawn item in soul world
 	- npcs replaced with npc souls- mess with them somehow
 	- some decoration objects in main world have soul npcs in soul world
+	- fluffy dream particles
 	- soul petals (rare)
 	- big meta puzzle with dream world
 
@@ -225,3 +226,4 @@
 - Palettes
 	- "Island Joy 16x" by Kerrie Lake: https://lospec.com/palette-list/island-joy-16
 	- Others from https://lospec.com/palette-list
+- CRT-Free by Brewed Ink: https://assetstore.unity.com/packages/vfx/shaders/crt-free-248066
