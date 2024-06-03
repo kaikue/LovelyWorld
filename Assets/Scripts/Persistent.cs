@@ -162,7 +162,7 @@ public class Persistent : MonoBehaviour
         GameObject soulGateway = Instantiate(soulExitGatewayPrefab, soulGatewayPos.Value, Quaternion.identity);
 
         //flip each object x
-        //TODO make sure this is only parents and not children (but holdable check should be on children too)
+        //TODO holdable check should be on children too
         
         GameObject[] levelObjects = SceneManager.GetActiveScene().GetRootGameObjects();
         foreach (GameObject go in levelObjects)

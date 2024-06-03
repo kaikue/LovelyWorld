@@ -109,11 +109,12 @@
 	- progression- petal collection, unlocked zones
 		- world state change, carried item, knowledge of secrets
 	- non euclidean room transitions?
+	- memorable vignettes with mechanics and setting
 
 - world
 	- center- veggie garden + love + magic (starting area) (red rose petals)
-	- ? - ruins + angels + rain (sacrifice game reference) (crumbling/throw blocks)
-	- up- popsicle ice zone (fruits?)
+	- ? - ruins + angels + rain + birds (sacrifice game reference) (crumbling/throw blocks, glide wings, rainwater fill puzzles)
+	- up- ice + sunlight (fruits?, sunlight beam puzzles, animal hybrids)
 	- right- gears jungle (robots, moving/rotating platforms)
 	- left- tide pools & cliffs (octopus, crab etc.) + sunset
 	- way up- saturn palace
@@ -151,6 +152,7 @@
 	- soul petals (rare)
 	- big meta puzzle with dream world
 	- respawn enter portal when exiting soul world
+	- wrong warp? (knowledge of world layout, partial warping with x/y)
 
 - collectible petals
 	- big flower at center of zone
@@ -188,6 +190,7 @@
 		- put multiple items in backpack
 		- take teleport vase into its partner in backpack
 	- use moving platform jump/throw velocity
+	- jump between stuff in different screens (respawn, refill moves)
 
 - music
 	- title: ?
