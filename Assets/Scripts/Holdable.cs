@@ -174,7 +174,7 @@ public class Holdable : MonoBehaviour
                 //rb.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
                 //rb.velocity = Vector2.zero;
             }
-            if (!groundSnapMute)
+            if (!groundSnapMute && rb.velocity.y < 0)
             {
                 soundManager.PlaySound(landSound); //this won't play when sliding down a wall onto ground of same tileset
             }
@@ -266,7 +266,7 @@ public class Holdable : MonoBehaviour
 
     private IEnumerator DisableGroundSnapMute()
     {
-        yield return new WaitForFixedUpdate();
+        yield return new WaitForSeconds(0.2f);
         groundSnapMute = false;
     }
 

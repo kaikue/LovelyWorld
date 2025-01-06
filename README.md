@@ -3,13 +3,12 @@
 ## TODO
 
 - Bugs
+	- land sound spam when standing on item on descending platform
 	- player can get moving platform stuck inside them
 	- set xforce to 0 when on ground? (prevent skidding after jumping off sideways moving platform)
 	- should player be able to push solid items?
 	- make most holdables (jars) thinner than 1 tile so they can fit in gaps
 	- drop item on enemy shouldn't defeat it
-	- spawn thump is back
-	- only play land sound if velocity is high enough
 	- enemies get stuck walking against items- turn around? or push? or ignore? (cant because then they couldnt carry items)
 	- enemies standing on top of items is weird
 	- enemy drop off corner- is this the wrong drop check issue?
@@ -29,6 +28,7 @@
 	- bugs- worm, grasshopper
 	- some can't be picked up (spiky back)
 	- defeat enemy that hurt you to guaranteed drop a heart
+	- some can use items (even on player)
 - health
 	- collectible heart fragments to increase health
 	- heal with hearts
@@ -110,6 +110,7 @@
 		- world state change, carried item, knowledge of secrets
 	- non euclidean room transitions?
 	- memorable vignettes with mechanics and setting
+	- difficult/unreachable areas, unsolvable mysteries
 
 - world
 	- center- veggie garden + love + magic (starting area) (red rose petals)
